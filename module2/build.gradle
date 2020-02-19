@@ -17,9 +17,28 @@ android {
     }
 
     buildTypes {
+        debug{
+            signingConfig signingConfigs.debug
+        }
+        qa{
+            signingConfig signingConfigs.debug
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
+        }
+    }
+
+    flavorDimensions "type"
+
+    productFlavors{
+        free{
+            applicationIdSuffix = ".free"
+        }
+
+        commercial{
+            applicationIdSuffix = ".commercial"
         }
     }
 
