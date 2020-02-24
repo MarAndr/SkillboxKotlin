@@ -27,8 +27,13 @@ fun main() {
     }
 
     println("Cумма введённых чисел: ${listElementsSum(list)}")
-    for (numElement in list){
-        println("Число <$numElement>, Сумма <${listElementsSum(list)}>, НОД <${calculateNod(numElement, listElementsSum(list))}>")
+    for (numElement in list) {
+        println(
+            "Число <$numElement>, Сумма <${listElementsSum(list)}>, НОД <${calculateNod(
+                numElement,
+                listElementsSum(list)
+            )}>"
+        )
     }
 
 
@@ -45,24 +50,24 @@ fun listOfNumbers(n: Int?): MutableList<Int> {
     return list
 }
 
-fun listElementsSum(list: List<Int>) : Int {
+fun listElementsSum(list: List<Int>): Int {
     var sum = 0
-    for (currentNum in list){
+    for (currentNum in list) {
         sum += currentNum
     }
     return sum
 }
 
 
-tailrec fun calculateNod (a: Int, b : Int) : Int {
-    return if(a != b){
-        if (a > b){
+tailrec fun calculateNod(a: Int, b: Int): Int {
+    return if (a != b) {
+        if (a > b) {
             calculateNod(a - b, b)
-        } else{
+        } else {
             calculateNod(a, b - a)
         }
 
-    } else{
+    } else {
         a
     }
 }
