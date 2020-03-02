@@ -1,56 +1,78 @@
 package com.example.skillboxkotlin
 
+import kotlin.math.abs
+
 fun main() {
 
-    var count = 0
 
     print("Введите число: ")
-    val n = readLine()?.toIntOrNull()
 
-    val list = listOfNumbers(n)
 
-    for (numElement in list) {
-        if (numElement < 0) continue
-        count += 1
+    while (true) {
+        val number = readLine()?.toIntOrNull()
+        if (number !is Int) {
+            println("Вы не ввели число. Повторите попытку")
+            continue
+        } else {
+            val list = listCreation(number)
+            print("Количество положительных чисел, среди введённых данных: ${positiveNumCount(list)}")
+            println()
+            print("Чётные числа среди введённых данных: ")
+            evenNumSearch(list)
+            val set = setOf<Int>().union(list)
+            println()
+            println("Количество уникальных введённых чисел: ${set.size}")
+            for (currentNum in list) {
+                println(
+                    "Число <$currentNum>, cумма введённых чисел <${sumOfListElements(list)}>, НОД <${calculateNod(
+                        currentNum,
+                        sumOfListElements(list)
+                    )}>"
+                )
+            }
+            break
+        }
     }
-    val set = setOf<Int>().union(list)
-
-
-
-    println("Количество уникальных введённых чисел: ${set.size}")
-    println("Количество положительных чисел: $count")
-    println("Чётные числа среди введённых данных: ")
-
-    for (numElement in list) {
-        if (numElement % 2 == 1) continue
-        println("$numElement ")
-    }
-
-    println("Cумма введённых чисел: ${listElementsSum(list)}")
-    for (numElement in list) {
-        println(
-            "Число <$numElement>, Сумма <${listElementsSum(list)}>, НОД <${calculateNod(
-                numElement,
-                listElementsSum(list)
-            )}>"
-        )
-    }
-
 
 }
 
+fun listCreation(n: Int): MutableList<Int> {
+    val list: MutableList<Int> = mutableListOf()
+    val range = 0 until n
 
-fun listOfNumbers(n: Int?): MutableList<Int> {
-    val list = mutableListOf<Int>()
-    val range = 1..n!!
-    for (current in range) {
-        val nums = readLine()?.toIntOrNull()
-        list.add(nums!!)
+    for (currentElement in range) {
+        while (true) {
+            val personalNum = readLine()?.toIntOrNull()
+            if (personalNum !is Int) {
+                println("Вы не ввели число. Повторите попытку")
+                continue
+            } else list.add(personalNum)
+            break
+        }
     }
+
     return list
 }
 
-fun listElementsSum(list: List<Int>): Int {
+fun evenNumSearch(list: MutableList<Int>) {
+    for (currentNum in list) {
+        if (currentNum % 2 == 0) {
+            print("$currentNum ")
+        } else {
+            continue
+        }
+    }
+}
+
+fun positiveNumCount(list: MutableList<Int>): Int {
+    var counter = 0
+    for (currentNum in list) {
+        if (currentNum > 0) counter++
+    }
+    return counter
+}
+
+fun sumOfListElements(list: MutableList<Int>): Int {
     var sum = 0
     for (currentNum in list) {
         sum += currentNum
@@ -58,16 +80,15 @@ fun listElementsSum(list: List<Int>): Int {
     return sum
 }
 
-
 tailrec fun calculateNod(a: Int, b: Int): Int {
-    return if (a != b) {
-        if (a > b) {
-            calculateNod(a - b, b)
+    return if (abs(a) != abs(b)) {
+        if (abs(a) > abs(b)) {
+            calculateNod(abs(a) - abs(b), abs(b))
         } else {
-            calculateNod(a, b - a)
+            calculateNod(a, abs(b) - abs(a))
         }
 
     } else {
-        a
+        abs(a)
     }
 }
