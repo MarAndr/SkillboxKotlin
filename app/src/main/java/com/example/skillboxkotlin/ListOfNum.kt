@@ -5,13 +5,13 @@ import kotlin.math.abs
 fun main() {
 
 
-    print("Введите число: ")
+    print("Введите положительное число: ")
 
 
     while (true) {
         val number = readLine()?.toIntOrNull()
-        if (number !is Int) {
-            println("Вы не ввели число. Повторите попытку")
+        if (number !is Int || number < 0) {
+            println("Вы не ввели число или ваше число отрицательное. Повторите попытку")
             continue
         } else {
             val list = listCreation(number)
