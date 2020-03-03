@@ -15,21 +15,18 @@ fun main() {
             continue
         } else {
             val list = listCreation(number)
+            val sum = list.sum()
+            val map = mutableMapOf<Int, Int>()
             print("Количество положительных чисел, среди введённых данных: ${positiveNumCount(list)}")
             println()
-            print("Чётные числа среди введённых данных: ")
-            evenNumSearch(list)
-            val set = setOf<Int>().union(list)
+            print("Чётные числа среди введённых данных: ${list.filter { it % 2 == 0 }}")
             println()
-            println("Количество уникальных введённых чисел: ${set.size}")
+            println("Количество уникальных введённых чисел: ${list.toSet().size}")
+
             for (currentNum in list) {
-                println(
-                    "Число <$currentNum>, cумма введённых чисел <${sumOfListElements(list)}>, НОД <${calculateNod(
-                        currentNum,
-                        sumOfListElements(list)
-                    )}>"
-                )
+                map.put(currentNum, calculateNod(currentNum, sum))
             }
+            map.forEach { println("Число <${it.key}>, сумма введённых чисел <$sum>, НОД <${it.value}>") }
             break
         }
     }
@@ -54,15 +51,6 @@ fun listCreation(n: Int): MutableList<Int> {
     return list
 }
 
-fun evenNumSearch(list: MutableList<Int>) {
-    for (currentNum in list) {
-        if (currentNum % 2 == 0) {
-            print("$currentNum ")
-        } else {
-            continue
-        }
-    }
-}
 
 fun positiveNumCount(list: MutableList<Int>): Int {
     var counter = 0
@@ -70,14 +58,6 @@ fun positiveNumCount(list: MutableList<Int>): Int {
         if (currentNum > 0) counter++
     }
     return counter
-}
-
-fun sumOfListElements(list: MutableList<Int>): Int {
-    var sum = 0
-    for (currentNum in list) {
-        sum += currentNum
-    }
-    return sum
 }
 
 tailrec fun calculateNod(a: Int, b: Int): Int {
