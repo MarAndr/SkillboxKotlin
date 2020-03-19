@@ -1,4 +1,4 @@
-package com.example.skillboxkotlin
+package com.example.skillboxkotlin.Weapons
 
 sealed class FireType {
     object SingleType : FireType()

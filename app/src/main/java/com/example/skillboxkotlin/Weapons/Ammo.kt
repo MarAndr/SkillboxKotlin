@@ -1,4 +1,4 @@
-package com.example.skillboxkotlin
+package com.example.skillboxkotlin.Weapons
 
 import kotlin.math.roundToInt
 
@@ -8,7 +8,7 @@ enum class Ammo(private val damage : Int, private val criticalDamageChance : Int
     ORDINARY_BULLET (15, 25,2),
     ARMOR_PIRCING_MISSILE(20,40,5);
 
-    fun currentDamage(): Int{
+    fun getCurrentDamage(): Int{
         return if ((Math.random() * 100).roundToInt() > criticalDamageChance) damage
         else damage * coeffCriticDamage
     }

@@ -1,14 +1,16 @@
-package com.example.skillboxkotlin
+package com.example.skillboxkotlin.Weapons
 
 abstract class AbstractWeapon (private val maxMagazineCapacity : Int, private val fireType: FireType) {
 
     private var currentListOfAmmo : MutableList<Ammo> = mutableListOf()
 
-    private val isHaveAmmo : Boolean = currentListOfAmmo.isNotEmpty()
+     val isHaveAmmo : Boolean
+    get() {return currentListOfAmmo.isNotEmpty()}
 
     abstract fun createAmmo() : Ammo
 
-    open fun recharge (){
+
+    fun recharge (){
         val newListOfAmmo = mutableListOf<Ammo>()
         val range = 1 .. maxMagazineCapacity
         for (currentAmmo in range){
@@ -17,16 +19,16 @@ abstract class AbstractWeapon (private val maxMagazineCapacity : Int, private va
         currentListOfAmmo = newListOfAmmo
     }
 
-    open fun gettingAmmo(){
+    fun gettingAmmo(){
         if (fireType is FireType.SingleType){
-            if (currentListOfAmmo.size != 0){
+            if (isHaveAmmo){
                 currentListOfAmmo.removeAt(currentListOfAmmo.lastIndex)
                 println("Вы использовали один патрон. В магазине осталось ${currentListOfAmmo.size}")
             }
             else println("У вас закончились патроны. Перезарядите магазин!")
         } else {
             for (currentElem in 1..10){
-                if (currentListOfAmmo.size != 0){
+                if (isHaveAmmo){
                     currentListOfAmmo.removeAt(currentListOfAmmo.lastIndex)
                     println("Вы использовали 10 патронов. В магазине осталось ${currentListOfAmmo.size}")
                 }
