@@ -1,34 +1,50 @@
 package com.example.skillboxkotlin.Warriors
 
 import com.example.skillboxkotlin.Weapons.AbstractWeapon
+import com.example.skillboxkotlin.Weapons.FireType
 import kotlin.math.roundToInt
 
 abstract class AbstractWarrior(
-    val maxHealthLevel : Int, override val avoidanceChance: Int,
-    val accuracy : Int, val weapon: AbstractWeapon
-                               ) : Warrior {
+    val maxHP: Int, override val avoidanceChance: Int,
+    val accuracy: Int, val weapon: AbstractWeapon
+) : Warrior {
 
     override val isKilled: Boolean
         get() {
-            return currentHealthLevel <= 0
+            return hP <= 0
         }
 
-    open var currentHealthLevel : Int = maxHealthLevel
+    open var hP: Int = maxHP
 
     override fun attack(enemy: Warrior) {
-        if (!weapon.isHaveAmmo){
+        if (!weapon.isHaveAmmo) {
             weapon.recharge()
-        } else{
-            weapon.gettingAmmo()
-            if (!((100 * Math.random()).roundToInt() > accuracy && (100 * Math.random()).roundToInt() > enemy.avoidanceChance)){
-                val totalDamage = weapon.createAmmo().getCurrentDamage()
-                enemy.takeDamage(totalDamage)
+        } else {
+            if (weapon.fireType is FireType.SingleType) {
+                weapon.gettingAmmo()
+                if (!((100 * Math.random()).roundToInt() > accuracy &&
+                            (100 * Math.random()).roundToInt() > enemy.avoidanceChance)
+                ) {
+                    val totalDamage = weapon.createAmmo().getCurrentDamage()
+                    enemy.takeDamage(totalDamage)
+                }
+            }
+            else{
+                weapon.gettingAmmo()
+                for (currentElem in 1..FireType.BurstsType.shotsAmount){
+                    if (!((100 * Math.random()).roundToInt() > accuracy &&
+                                (100 * Math.random()).roundToInt() > enemy.avoidanceChance)
+                    ) {
+                        val totalDamage = weapon.createAmmo().getCurrentDamage()
+                        enemy.takeDamage(totalDamage)
+                    }
+                }
             }
         }
     }
 
     override fun takeDamage(damage: Int) {
-        currentHealthLevel -= damage
+        hP -= damage
     }
 
 }

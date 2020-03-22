@@ -4,14 +4,15 @@ import com.example.skillboxkotlin.Weapons.AbstractWeapon
 import com.example.skillboxkotlin.Weapons.Weapons
 
 class Veteran(
-    maxHealthLevel: Int = 300, avoidanceChance: Int = 70,
+    maxHP: Int = 300, avoidanceChance: Int = 70,
     accuracy: Int = 85, weapon: AbstractWeapon = Weapons.Bazooka
 
-) : AbstractWarrior(maxHealthLevel,avoidanceChance, accuracy, weapon ) {
+) : AbstractWarrior(maxHP, avoidanceChance, accuracy, weapon) {
 
-    override var currentHealthLevel : Int = maxHealthLevel
+    override var hP: Int = maxHP
 
     override fun toString(): String {
-        return "Veteran (maxHealthLevel = $maxHealthLevel, avoidanceChance = $avoidanceChance, accuracy = $accuracy, weapon = $weapon)"
+        return "Veteran (maxHP = $maxHP, avoidanceChance = $avoidanceChance," +
+                " accuracy = $accuracy, weapon = $weapon)"
     }
 }
