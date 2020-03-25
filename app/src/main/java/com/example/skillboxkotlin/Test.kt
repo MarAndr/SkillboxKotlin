@@ -1,11 +1,11 @@
 package com.example.skillboxkotlin
 
 import com.example.skillboxkotlin.Warriors.AbstractWarrior
+import com.example.skillboxkotlin.Warriors.Veteran
 
 fun main() {
 
-    val team1 = Team(5)
-    team1.teamList.forEach{ println(it)}
-    println(team1.sumHP())
+    println(Veteran().isKilled)
 
 }
+

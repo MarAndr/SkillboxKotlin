@@ -27,19 +27,19 @@ abstract class AbstractWeapon(
         if (fireType is FireType.SingleType) {
             if (isHaveAmmo) {
                 currentListOfAmmo.removeAt(currentListOfAmmo.lastIndex)
-                println(
-                    "Вы использовали один патрон. " +
-                            "В магазине осталось ${currentListOfAmmo.size}"
-                )
+//                println(
+//                    "Вы использовали один патрон. " +
+//                            "В магазине осталось ${currentListOfAmmo.size}"
+//                )
             } else println("У вас закончились патроны. Перезарядите магазин!")
         } else {
             for (currentElem in 1..FireType.BurstsType.shotsAmount) {
                 if (isHaveAmmo) {
                     currentListOfAmmo.removeAt(currentListOfAmmo.lastIndex)
-                    println(
-                        "Вы использовали 10 патронов. " +
-                                "В магазине осталось ${currentListOfAmmo.size}"
-                    )
+//                    println(
+//                        "Вы использовали 10 патронов. " +
+//                                "В магазине осталось ${currentListOfAmmo.size}"
+//                    )
                 } else println("У вас закончились патроны. Перезарядите магазин!")
             }
         }

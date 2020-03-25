@@ -31,14 +31,19 @@ abstract class AbstractWarrior(
             }
             else{
                 weapon.gettingAmmo()
+                var totalDamageSum = 0
                 for (currentElem in 1..FireType.BurstsType.shotsAmount){
                     if (!((100 * Math.random()).roundToInt() > accuracy &&
                                 (100 * Math.random()).roundToInt() > enemy.avoidanceChance)
                     ) {
                         val totalDamage = weapon.createAmmo().getCurrentDamage()
-                        enemy.takeDamage(totalDamage)
+                        totalDamageSum += totalDamage
+
                     }
                 }
+
+                enemy.takeDamage(totalDamageSum)
+
             }
         }
     }
