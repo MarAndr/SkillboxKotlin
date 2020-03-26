@@ -9,8 +9,6 @@ class Battle(val teamSize: Int) {
     val team1 = Team(teamSize)
     val team2 = Team(teamSize)
     var isBattleFinished: Boolean = false
-    val sumHPteam1 = team1.sumHP()
-    val sumHPteam2 = team2.sumHP()
 
 
     fun getBattleState(): BattleState {
@@ -31,7 +29,7 @@ class Battle(val teamSize: Int) {
         }
 
         if (numberOfLivingWarriorsTeam1 != 0 && numberOfLivingWarriorsTeam2 != 0)
-            return BattleState.Progress
+            return BattleState.Progress(team1.sumHP(), team2.sumHP())
         else if (numberOfLivingWarriorsTeam1 == 0 && numberOfLivingWarriorsTeam2 != 0) {
             isBattleFinished = true
             return BattleState.TeamTwoWon

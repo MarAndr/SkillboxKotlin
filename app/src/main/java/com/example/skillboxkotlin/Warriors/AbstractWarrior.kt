@@ -28,11 +28,10 @@ abstract class AbstractWarrior(
                     val totalDamage = weapon.createAmmo().getCurrentDamage()
                     enemy.takeDamage(totalDamage)
                 }
-            }
-            else{
+            } else {
                 weapon.gettingAmmo()
                 var totalDamageSum = 0
-                for (currentElem in 1..FireType.BurstsType.shotsAmount){
+                for (currentElem in 1..FireType.BurstsType.shotsAmount) {
                     if (!((100 * Math.random()).roundToInt() > accuracy &&
                                 (100 * Math.random()).roundToInt() > enemy.avoidanceChance)
                     ) {
@@ -49,7 +48,10 @@ abstract class AbstractWarrior(
     }
 
     override fun takeDamage(damage: Int) {
-        hP -= damage
+        if ((hP - damage) > 0)
+            hP -= damage
+        else
+            hP = 0
     }
 
 }
