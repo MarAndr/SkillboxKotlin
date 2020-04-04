@@ -25,7 +25,10 @@ class Queue<T> {
 
     fun dequeue(): T? {
 
-        if (queueList.isEmpty()) return null
-        else return queueList.removeAt(0)
+        return if (queueList.isEmpty())
+            null
+        else
+            queueList.removeAt(0)
     }
 }
+

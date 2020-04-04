@@ -22,6 +22,3 @@ sealed class Result<out T, R> {
 fun returnObject(): Result<Int, String> {
     return Result.Error("")
 }
-
-
-

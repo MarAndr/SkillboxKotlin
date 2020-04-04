@@ -1,5 +1,6 @@
 package com.example.skillboxkotlin
 
+
 fun main() {
 
     filterList(arrayListOf(1.2, 2.2, 4.3, 55.55, 100.0, 0.5, 0.2444)).forEach { println(it) }
