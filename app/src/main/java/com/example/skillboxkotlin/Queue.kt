@@ -1,17 +1,19 @@
 package com.example.skillboxkotlin
 
+
 fun main() {
 
-    val queue = Queue<String>()
-    queue.enqueue("Andrey")
-    queue.enqueue("Anatoliy")
-    queue.enqueue("Bobby")
-    println(queue.queueList)
-    queue.dequeue()
-    println(queue.queueList)
-    queue.enqueue("Slava")
-    println(queue.queueList)
+    val queueFirst = Queue<String>()
 
+    queueFirst.enqueue("Andrey")
+    queueFirst.enqueue("Anatoliy")
+    queueFirst.enqueue("Bobby")
+    queueFirst.enqueue("Alex")
+    queueFirst.enqueue("John")
+
+    val sortedQueue = queueFirst.filter { x -> x.length > 6 }
+
+    println(sortedQueue)
 }
 
 class Queue<T> {
@@ -25,10 +27,21 @@ class Queue<T> {
 
     fun dequeue(): T? {
 
-        return if (queueList.isEmpty())
-            null
-        else
-            queueList.removeAt(0)
+        if (queueList.isEmpty()) return null
+        else return queueList.removeAt(0)
     }
-}
 
+    fun filter(lambda: (T) -> Boolean): Queue<T> {
+        val newQueue = Queue<T>()
+        val sortedQueueList = this.queueList.filter { lambda(it) }
+        newQueue.queueList = sortedQueueList.toMutableList()
+        return newQueue
+    }
+
+
+    override fun toString(): String {
+        return "Queue(queueList=$queueList)"
+    }
+
+
+}
