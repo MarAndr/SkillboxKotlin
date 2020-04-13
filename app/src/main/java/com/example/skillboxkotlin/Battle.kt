@@ -44,7 +44,6 @@ class Battle(val teamSize: Int) {
 
 
     fun nextIteration() {
-        println("new iteration")
         shuffled()
         for (elem in 0 until teamSize) {
             if (!team1.teamList[elem].isKilled && !team2.teamList[elem].isKilled) {

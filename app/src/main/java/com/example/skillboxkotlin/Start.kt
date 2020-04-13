@@ -13,23 +13,4 @@ fun main() {
 }
 
 
-//Примерное содержание файла:
-//
-//
-//
-//Введите количество воинов: 10
-//
-//Начало битвы
-//
-//Progress(commandAHealth=1370, commandBHealth=680)
-//
-//...
-//
-//Progress(commandAHealth=1100, commandBHealth=50)
-//
-//Progress(commandAHealth=1100, commandBHealth=50)
-//
-//Progress(commandAHealth=1100, commandBHealth=50)
-//
-//Победила первая команда
 

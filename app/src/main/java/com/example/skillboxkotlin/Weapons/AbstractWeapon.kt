@@ -1,5 +1,7 @@
 package com.example.skillboxkotlin.Weapons
 
+import com.example.skillboxkotlin.NoAmmoException
+
 abstract class AbstractWeapon(
     private val maxMagazineCapacity: Int,
     val fireType: FireType
@@ -27,20 +29,12 @@ abstract class AbstractWeapon(
         if (fireType is FireType.SingleType) {
             if (isHaveAmmo) {
                 currentListOfAmmo.removeAt(currentListOfAmmo.lastIndex)
-//                println(
-//                    "Вы использовали один патрон. " +
-//                            "В магазине осталось ${currentListOfAmmo.size}"
-//                )
-            } else println("У вас закончились патроны. Перезарядите магазин!")
+            } else throw NoAmmoException()
         } else {
             for (currentElem in 1..FireType.BurstsType.shotsAmount) {
                 if (isHaveAmmo) {
                     currentListOfAmmo.removeAt(currentListOfAmmo.lastIndex)
-//                    println(
-//                        "Вы использовали 10 патронов. " +
-//                                "В магазине осталось ${currentListOfAmmo.size}"
-//                    )
-                } else println("У вас закончились патроны. Перезарядите магазин!")
+                } else throw NoAmmoException()
             }
         }
 
