@@ -4,7 +4,8 @@ import kotlin.math.roundToInt
 
 enum class Ammo(
     private val damage: Int,
-    private val criticalDamageChance: Int, private val coeffCriticDamage: Int
+    private val criticalDamageChance: Int,
+    private val coeffCriticDamage: Int
 ) {
 
     TRAUMATIC_BULLET(5, 5, 1),

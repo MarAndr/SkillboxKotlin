@@ -12,9 +12,7 @@ abstract class AbstractWeapon(
     val isHaveAmmo: Boolean
         get() = currentListOfAmmo.isNotEmpty()
 
-
     abstract fun createAmmo(): Ammo
-
 
     fun recharge() {
         val newListOfAmmo = mutableListOf<Ammo>()
@@ -37,8 +35,5 @@ abstract class AbstractWeapon(
                 } else throw NoAmmoException()
             }
         }
-
     }
-
-
 }

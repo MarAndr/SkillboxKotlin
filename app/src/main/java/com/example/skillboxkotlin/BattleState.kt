@@ -2,12 +2,12 @@ package com.example.skillboxkotlin
 
 sealed class BattleState {
 
-    class Progress (var hpTeam1 : Int, var hpTeam2 : Int) : BattleState(){
+    class Progress(var hpTeam1: Int, var hpTeam2: Int) : BattleState() {
         override fun toString(): String {
             return "Progress ( team1HP = $hpTeam1, team2HP = $hpTeam2 )"
         }
     }
-    object TeamOneWon : BattleState(){
+    object TeamOneWon : BattleState() {
         override fun toString(): String {
             return "Team1 won"
         }
@@ -17,7 +17,7 @@ sealed class BattleState {
             return "Team2 won"
         }
     }
-    object Draw : BattleState(){
+    object Draw : BattleState() {
         override fun toString(): String {
             return "Draw"
         }

@@ -6,8 +6,10 @@ import com.example.skillboxkotlin.Weapons.FireType
 import kotlin.math.roundToInt
 
 abstract class AbstractWarrior(
-    val maxHP: Int, override val avoidanceChance: Int,
-    val accuracy: Int, val weapon: AbstractWeapon
+    val maxHP: Int,
+    override val avoidanceChance: Int,
+    val accuracy: Int,
+    val weapon: AbstractWeapon
 ) : Warrior {
 
     override val isKilled: Boolean
@@ -43,12 +45,10 @@ abstract class AbstractWarrior(
                 ) {
                     val totalDamage = weapon.createAmmo().getCurrentDamage()
                     totalDamageSum += totalDamage
-
                 }
             }
 
             enemy.takeDamage(totalDamageSum)
-
         }
     }
 
@@ -59,4 +59,3 @@ abstract class AbstractWarrior(
             hP = 0
     }
 }
-

@@ -1,9 +1,5 @@
 package com.example.skillboxkotlin.Weapons
 
-import com.example.skillboxkotlin.Weapons.AbstractWeapon
-import com.example.skillboxkotlin.Weapons.Ammo
-import com.example.skillboxkotlin.Weapons.FireType
-
 object Weapons {
     object TraumaticGun : AbstractWeapon(6, FireType.SingleType) {
         override fun createAmmo(): Ammo {
@@ -33,7 +29,6 @@ object Weapons {
         override fun toString(): String {
             return "Automatic"
         }
-
     }
 
     object Bazooka : AbstractWeapon(1, FireType.SingleType) {
@@ -44,6 +39,5 @@ object Weapons {
         override fun toString(): String {
             return "Bazooka"
         }
-
     }
 }

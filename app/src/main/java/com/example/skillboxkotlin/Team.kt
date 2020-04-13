@@ -1,6 +1,9 @@
 package com.example.skillboxkotlin
 
-import com.example.skillboxkotlin.Warriors.*
+import com.example.skillboxkotlin.Warriors.AbstractWarrior
+import com.example.skillboxkotlin.Warriors.Recruit
+import com.example.skillboxkotlin.Warriors.SkilledWarrior
+import com.example.skillboxkotlin.Warriors.Veteran
 import kotlin.math.roundToInt
 
 class Team(val teamSize: Int) {
@@ -31,8 +34,3 @@ class Team(val teamSize: Int) {
         return sumHP
     }
 }
-
-
-
-
-

@@ -4,8 +4,10 @@ import com.example.skillboxkotlin.Weapons.AbstractWeapon
 import com.example.skillboxkotlin.Weapons.Weapons
 
 class Veteran(
-    maxHP: Int = 300, avoidanceChance: Int = 70,
-    accuracy: Int = 85, weapon: AbstractWeapon = Weapons.Bazooka
+    maxHP: Int = 300,
+    avoidanceChance: Int = 70,
+    accuracy: Int = 85,
+    weapon: AbstractWeapon = Weapons.Bazooka
 
 ) : AbstractWarrior(maxHP, avoidanceChance, accuracy, weapon) {
 
