@@ -3,9 +3,7 @@ package com.example.skillboxkotlin
 
 fun main() {
 
-    val queueFirst = Queue<String>()
-
-    queueFirst.enqueue("Andrey")
+    val queueFirst = Queue(mutableListOf("Andrey"))
     queueFirst.enqueue("Anatoliy")
     queueFirst.enqueue("Bobby")
     queueFirst.enqueue("Alex")
@@ -16,10 +14,10 @@ fun main() {
     println(sortedQueue)
 }
 
-class Queue<T> {
+class Queue<T>(list: MutableList<T>) {
 
-    var queueList = mutableListOf<T>()
-        private set
+    private var queueList = list
+
 
     fun enqueue(item: T) {
         queueList.add(item)
@@ -32,10 +30,7 @@ class Queue<T> {
     }
 
     fun filter(lambda: (T) -> Boolean): Queue<T> {
-        val newQueue = Queue<T>()
-        val sortedQueueList = this.queueList.filter { lambda(it) }
-        newQueue.queueList = sortedQueueList.toMutableList()
-        return newQueue
+        return Queue(this.queueList.filter { lambda(it) }.toMutableList())
     }
 
 
