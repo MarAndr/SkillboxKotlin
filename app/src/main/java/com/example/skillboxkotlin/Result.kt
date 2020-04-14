@@ -4,8 +4,8 @@ fun main() {
     val return1 = returnObject()
     val return2: Result<Number, String> = returnObject()
     val return3: Result<Any, String> = returnObject()
-    val return4: Result<Int, CharSequence> = returnObject()
-    val return5: Result<Int, Any> = returnObject()
+//    val return4: Result<Int, CharSequence> = returnObject()
+//    val return5: Result<Int, Any> = returnObject()
 }
 
 sealed class Result<out T, R> {
