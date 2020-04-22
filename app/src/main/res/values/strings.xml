@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">SkillboxKotlin</string>
+
+    <string name="recommendText">Ваши данные:</string>
+    <string name="checkBoxConvention">Принять соглашения</string>
+    <string name="buttonLogin">Login</string>
+    <string name="enterPassword">Введите пароль</string>
+    <string name="enterEmail">Введите email</string>
+    <string name="imageDescription">image</string>
+    <string name="app_name">app_name</string>
+
 </resources>
