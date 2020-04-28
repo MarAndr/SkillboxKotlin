@@ -90,7 +90,7 @@
         android:id="@+id/groupFields"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="etPassword,etEmail,checkBox,loginButton" />
+        app:constraint_referenced_ids="etPassword,etEmail,checkBox" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineRight"

@@ -6,6 +6,8 @@ import android.os.Handler
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_main.*
@@ -20,22 +22,46 @@ class MainActivity : AppCompatActivity() {
 
         loginButton.setOnClickListener {
 
-            groupFields.isEnabled = false
-//            groupFields.visibility= View.GONE
-//            loginButton.isEnabled = false
-//            etEmail.isEnabled = false
-//            etPassword.isEnabled = false
-//            checkBox.isEnabled = false
+            loginButton.isEnabled = false
+            etEmail.isEnabled = false
+            etPassword.isEnabled = false
+            checkBox.isEnabled = false
 
+            val layout: ConstraintLayout = findViewById(R.id.container)
+            val set = ConstraintSet()
+            set.clone(layout)
             val progressBar = ProgressBar(this)
-            container.addView(progressBar)
+            progressBar.id = View.generateViewId()
+            layout.addView(progressBar)
+            set.connect(
+                progressBar.id,
+                ConstraintSet.BOTTOM,
+                ConstraintSet.PARENT_ID,
+                ConstraintSet.BOTTOM,
+                150
+            )
+            set.connect(
+                progressBar.id,
+                ConstraintSet.RIGHT,
+                ConstraintSet.PARENT_ID,
+                ConstraintSet.RIGHT,
+                0
+            )
+            set.connect(
+                progressBar.id,
+                ConstraintSet.LEFT,
+                ConstraintSet.PARENT_ID,
+                ConstraintSet.LEFT,
+                0
+            )
+            set.constrainHeight(progressBar.id, 150)
+            set.applyTo(layout)
 
             Handler().postDelayed({
-                groupFields.isEnabled = true
-//                loginButton.isEnabled = true
-//                etEmail.isEnabled = true
-//                etPassword.isEnabled = true
-//                checkBox.isEnabled = true
+                loginButton.isEnabled = true
+                etEmail.isEnabled = true
+                etPassword.isEnabled = true
+                checkBox.isEnabled = true
                 progressBar.visibility = View.GONE
                 Toast.makeText(this, "Login was successful", Toast.LENGTH_SHORT).show()
             }, 2000)
