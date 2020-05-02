@@ -37,14 +37,13 @@ class MainActivity : AppCompatActivity() {
 
         val searchItem = toolbarMainAct.menu.findItem(R.id.searchMainMenu)
 
-        searchItem.setOnActionExpandListener(object: MenuItem.OnActionExpandListener{
+        searchItem.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
             override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
-                toast("You expand the search")
                 return true
             }
 
             override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
-                textView.text = stringWithPoem
+                textView.setText(R.string.spongeBobSong)
                 return true
             }
 
@@ -58,9 +57,14 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                listWithPoemWords.filter { it.contains(newText ?: "", true) }
-                    .joinToString()
-                    .let { textView.text = it }
+                if (newText.isNullOrEmpty()) {
+                    textView.setText(R.string.spongeBobSong)
+                } else {
+                    listWithPoemWords.filter { it.contains(newText ?: "", true) }
+                        .joinToString()
+                        .let { textView.text = it }
+                }
+
                 return true
             }
         })

@@ -7,15 +7,17 @@
          />
 
     <item
+        android:id="@+id/searchMainMenu"
+        android:icon="@drawable/ic_search"
+        android:title="SearchItem"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:showAsAction="ifRoom|collapseActionView" />
+
+    <item
         android:id="@+id/secondElementMainMenu"
         android:title="Second"
         android:icon="@drawable/ic_assignment"
         app:showAsAction="ifRoom" />
 
-    <item
-        android:id="@+id/searchMainMenu"
-        android:icon="@drawable/ic_search"
-        android:title="SearchItem"
-        app:actionViewClass="androidx.appcompat.widget.SearchView"
-        app:showAsAction="ifRoom" />
+
 </menu>
