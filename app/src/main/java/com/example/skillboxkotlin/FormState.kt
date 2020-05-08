@@ -8,7 +8,7 @@ import androidx.annotation.RequiresApi
 data class FormState(
     val valid: Boolean, val message: String)
 : Parcelable {
-    @RequiresApi(Build.VERSION_CODES.Q)
+
     constructor(parcel: Parcel) : this(
         parcel.readBoolean(),
         parcel.readString().orEmpty()
