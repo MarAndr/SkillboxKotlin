@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         loginButton.setOnClickListener {
 
 
-            if (etEmail.text.isNotEmpty() && etPassword.text.isNotEmpty()){
+            if (etEmail.text.contains('@') && etPassword.text.length > 6 && checkBox.isChecked){
                 state = state.noError()
                 loginButton.isEnabled = false
                 etEmail.isEnabled = false
@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
                     ConstraintSet.BOTTOM,
                     ConstraintSet.PARENT_ID,
                     ConstraintSet.BOTTOM,
-                    150
+                    250
                 )
                 set.connect(
                     progressBar.id,

@@ -9,6 +9,7 @@ data class FormState(
     val valid: Boolean, val message: String)
 : Parcelable {
 
+
     constructor(parcel: Parcel) : this(
         parcel.readBoolean(),
         parcel.readString().orEmpty()
@@ -23,7 +24,7 @@ data class FormState(
         return copy(false, "")
     }
 
-    @RequiresApi(Build.VERSION_CODES.Q)
+
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeBoolean(valid)
         parcel.writeString(message)
