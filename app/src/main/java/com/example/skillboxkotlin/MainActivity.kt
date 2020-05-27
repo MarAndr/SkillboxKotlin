@@ -1,9 +1,11 @@
 package com.example.skillboxkotlin
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
+import android.util.Patterns
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
@@ -22,8 +24,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        if (savedInstanceState != null){
-            state = savedInstanceState.getParcelable<FormState>(KEY_FORM_STATE) ?: error("Unexpected state")
+        if (savedInstanceState != null) {
+            state = savedInstanceState.getParcelable<FormState>(KEY_FORM_STATE)
+                ?: error("Unexpected state")
         }
 
 
@@ -37,65 +40,29 @@ class MainActivity : AppCompatActivity() {
 
         loginButton.setOnClickListener {
 
+            val isEmailValid = Patterns.EMAIL_ADDRESS.matcher(etEmail.text.toString()).matches()
 
-            if (etEmail.text.contains('@') && etPassword.text.length > 6 && checkBox.isChecked){
+            if (isEmailValid && etPassword.text.length > 6 && checkBox.isChecked) {
                 state = state.noError()
-                loginButton.isEnabled = false
-                etEmail.isEnabled = false
-                etPassword.isEnabled = false
-                checkBox.isEnabled = false
 
-                val layout: ConstraintLayout = findViewById(R.id.container)
-                val set = ConstraintSet()
-                set.clone(layout)
-                val progressBar = ProgressBar(this)
-                progressBar.id = View.generateViewId()
-                layout.addView(progressBar)
-                set.connect(
-                    progressBar.id,
-                    ConstraintSet.BOTTOM,
-                    ConstraintSet.PARENT_ID,
-                    ConstraintSet.BOTTOM,
-                    250
-                )
-                set.connect(
-                    progressBar.id,
-                    ConstraintSet.RIGHT,
-                    ConstraintSet.PARENT_ID,
-                    ConstraintSet.RIGHT,
-                    0
-                )
-                set.connect(
-                    progressBar.id,
-                    ConstraintSet.LEFT,
-                    ConstraintSet.PARENT_ID,
-                    ConstraintSet.LEFT,
-                    0
-                )
-                set.constrainHeight(progressBar.id, 150)
-                set.applyTo(layout)
+                val intentToPhoneNumberActivity = Intent(this, PhoneNumberActivity::class.java)
+                startActivity(intentToPhoneNumberActivity)
 
-                Handler().postDelayed({
-                    loginButton.isEnabled = true
-                    etEmail.isEnabled = true
-                    etPassword.isEnabled = true
-                    checkBox.isEnabled = true
-                    progressBar.visibility = View.GONE
-                    Toast.makeText(this, "Login was successful", Toast.LENGTH_SHORT).show()
-                }, 2000)
             } else {
                 state = state.withError()
-                textView_error?.isVisible = true
-                textView_error?.text = state.message
+                textView_error.isVisible = true
+                textView_error.text = state.message
                 Handler().postDelayed({
-                    textView_error?.isVisible = false
-                },5000)
+                    textView_error.isVisible = false
+                }, 5000)
             }
 
 
         }
 
-        buttonANR?.setOnClickListener {
+
+
+        buttonANR.setOnClickListener {
             Thread.sleep(10000)
         }
 
@@ -127,6 +94,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStop() {
         super.onStop()
+        finish()
         Log.v(tag, "onStop was called")
         Log.d(tag, "onStop was called")
         Log.i(tag, "onStop was called")
@@ -146,7 +114,7 @@ class MainActivity : AppCompatActivity() {
         outState.putParcelable(KEY_FORM_STATE, state)
     }
 
-    companion object  {
+    companion object {
         private const val KEY_FORM_STATE = "formState"
     }
 

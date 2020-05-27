@@ -73,6 +73,18 @@
         app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
         app:layout_constraintTop_toBottomOf="@+id/etPassword" />
 
+    <Button
+        android:layout_marginTop="8dp"
+        android:id="@+id/buttonANR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/holo_red_dark"
+        android:text="ANR"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintStart_toStartOf="@+id/loginButton"
+        app:layout_constraintTop_toBottomOf="@+id/loginButton"
+        app:layout_constraintVertical_bias="1.0" />
+
     <TextView
         android:id="@+id/nameText"
         android:layout_width="wrap_content"
@@ -85,6 +97,21 @@
         app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
         app:layout_constraintVertical_chainStyle="spread_inside" />
+
+    <TextView
+        android:id="@+id/textView_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-smallcaps"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/guidelineRight"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
+        app:layout_constraintTop_toBottomOf="@+id/buttonANR"
+        app:layout_constraintVertical_bias="0.5" />
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/groupFields"
