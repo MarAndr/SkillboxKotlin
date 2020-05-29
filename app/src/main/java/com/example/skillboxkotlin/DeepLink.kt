@@ -1,8 +1,10 @@
 package com.example.skillboxkotlin
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_deeplink.*
+
 
 class DeepLink : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -11,9 +13,14 @@ class DeepLink : AppCompatActivity() {
         handleIntentData()
     }
 
+    override fun onNewIntent(intent: Intent?) {
+        setIntent(intent)
+        super.onNewIntent(intent)
+    }
+
     private fun handleIntentData() {
-        intent.data?.host.let { resourceName ->
-            tv_DeepLinkAct.text = resourceName
+        intent.data?.let { resourceName ->
+            tv_DeepLinkAct.text = resourceName.toString()
         }
     }
 }

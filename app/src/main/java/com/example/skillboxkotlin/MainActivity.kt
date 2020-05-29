@@ -47,6 +47,7 @@ class MainActivity : AppCompatActivity() {
 
                 val intentToPhoneNumberActivity = Intent(this, PhoneNumberActivity::class.java)
                 startActivity(intentToPhoneNumberActivity)
+                finish()
 
             } else {
                 state = state.withError()
@@ -94,7 +95,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStop() {
         super.onStop()
-        finish()
         Log.v(tag, "onStop was called")
         Log.d(tag, "onStop was called")
         Log.i(tag, "onStop was called")

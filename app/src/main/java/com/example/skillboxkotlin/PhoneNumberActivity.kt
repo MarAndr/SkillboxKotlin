@@ -8,7 +8,7 @@ import android.util.Patterns
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_phone_number_activity.*
-import kotlin.system.exitProcess
+import java.util.regex.Pattern
 
 
 class PhoneNumberActivity : AppCompatActivity() {
@@ -20,7 +20,10 @@ class PhoneNumberActivity : AppCompatActivity() {
 
         btn_call.setOnClickListener {
             val phoneNumber = etPhoneNumber.text.toString()
-            val isPhoneValid = Patterns.PHONE.matcher(phoneNumber).matches()
+
+            val isPhoneValid = Pattern.compile(
+                "(\\+?\\d{11})"
+            ) .matcher(phoneNumber).matches()
             if (isPhoneValid) {
                 dialPhoneNumber(phoneNumber)
             } else {
@@ -47,7 +50,7 @@ class PhoneNumberActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == PHONE_KEY) {
-            if (resultCode == Activity.RESULT_OK) {
+            if (resultCode != null) {
                 toast("Your call has happened!")
             }
         } else {
