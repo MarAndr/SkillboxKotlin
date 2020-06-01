@@ -26,9 +26,12 @@ data class FormState(
     }
 
 
-    @RequiresApi(Build.VERSION_CODES.Q)
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeBoolean(valid)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            parcel.writeBoolean(valid)
+        } else {
+            parcel.writeString(valid.toString())
+        }
         parcel.writeString(message)
     }
 

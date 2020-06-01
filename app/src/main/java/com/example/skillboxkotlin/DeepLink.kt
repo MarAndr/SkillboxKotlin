@@ -18,6 +18,11 @@ class DeepLink : AppCompatActivity() {
         super.onNewIntent(intent)
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        moveTaskToBack(true)
+    }
+
     private fun handleIntentData() {
         intent.data?.let { resourceName ->
             tv_DeepLinkAct.text = resourceName.toString()
