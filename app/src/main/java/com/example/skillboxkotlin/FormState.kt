@@ -9,13 +9,11 @@ data class FormState(
     val valid: Boolean, val message: String)
 : Parcelable {
 
-
-    @RequiresApi(Build.VERSION_CODES.Q)
     constructor(parcel: Parcel) : this(
-        parcel.readBoolean(),
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) parcel.readBoolean()
+        else parcel.readString()!!.toBoolean(),
         parcel.readString().orEmpty()
-    ) {
-    }
+    )
 
     fun withError(): FormState{
         return copy(false, "Fill out all the necessary fields, please!")
