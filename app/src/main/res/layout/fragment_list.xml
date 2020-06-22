@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tvZen_listFragment"
+        style="@style/TextListFootballTeamsStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ZenitListTextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.42"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.32" />
+
+    <TextView
+        android:id="@+id/tvLoko_listFragment"
+        style="@style/TextListFootballTeamsStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/LokoListTextView"
+        app:layout_constraintStart_toStartOf="@+id/tvZen_listFragment"
+        app:layout_constraintTop_toBottomOf="@+id/tvZen_listFragment" />
+
+    <TextView
+        android:id="@+id/tvKrasn_listFragment"
+        style="@style/TextListFootballTeamsStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/KrasnodarListTextView"
+        app:layout_constraintStart_toStartOf="@+id/tvLoko_listFragment"
+        app:layout_constraintTop_toBottomOf="@+id/tvLoko_listFragment" />
+
+    <TextView
+        android:id="@+id/tvRostov_listFragment"
+        style="@style/TextListFootballTeamsStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/RostovListTextView"
+        app:layout_constraintStart_toStartOf="@+id/tvKrasn_listFragment"
+        app:layout_constraintTop_toBottomOf="@+id/tvKrasn_listFragment" />
+
+    <TextView
+        android:id="@+id/tvCSKA_listFragment"
+        style="@style/TextListFootballTeamsStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/CskaListTextView"
+        app:layout_constraintStart_toStartOf="@+id/tvRostov_listFragment"
+        app:layout_constraintTop_toBottomOf="@+id/tvRostov_listFragment" />
+</androidx.constraintlayout.widget.ConstraintLayout>
