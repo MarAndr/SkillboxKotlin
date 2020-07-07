@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:orientation="horizontal"
     android:layout_height="match_parent"
-    android:background="#C4F6F8">
+    >
 
     <FrameLayout
         android:id="@+id/container_mainFragment"

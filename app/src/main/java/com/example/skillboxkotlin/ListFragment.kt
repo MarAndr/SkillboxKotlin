@@ -1,6 +1,7 @@
 package com.example.skillboxkotlin
 
 import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,6 +16,7 @@ import kotlinx.android.synthetic.main.fragment_list.*
 
 class ListFragment: Fragment(R.layout.fragment_list) {
 
+
     private val itemSelectListener: ItemSelectListener?
     get() = parentFragment?.let {  it as ItemSelectListener}
 
@@ -28,8 +30,7 @@ class ListFragment: Fragment(R.layout.fragment_list) {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-//        val fragment: Fragment? = parentFragment
-//        val parentActivity: Activity? = activity
+
         view.let { it as ViewGroup }
             .children
             .mapNotNull { it as? TextView }
@@ -40,6 +41,7 @@ class ListFragment: Fragment(R.layout.fragment_list) {
 
             }
     }
+
 
     private fun onTextClick(textViewText: String){
         Log.d("ListFragment", "onTextClick=$textViewText")
@@ -52,4 +54,5 @@ class ListFragment: Fragment(R.layout.fragment_list) {
         }
 
     }
+
 }
