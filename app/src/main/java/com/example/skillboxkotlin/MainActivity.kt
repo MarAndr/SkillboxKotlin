@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
             if (savedInstanceState == null){
                 val transaction = supportFragmentManager.beginTransaction()
-                transaction.add(R.id.container_mainAct, LoginFragment())
+                transaction.add(R.id.container_mainAct, loginFragment)
                 transaction.commit()
             }
 
@@ -31,14 +31,14 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-//    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-//        super.onRestoreInstanceState(savedInstanceState)
-//        loginFragment = supportFragmentManager.getFragment(savedInstanceState, LOGIN_FRAGMENT_KEY)!!
-//    }
-//
-//    override fun onSaveInstanceState(outState: Bundle) {
-//        super.onSaveInstanceState(outState)
-//        supportFragmentManager.putFragment(outState, LOGIN_FRAGMENT_KEY, loginFragment)
-//    }
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        loginFragment = supportFragmentManager.getFragment(savedInstanceState, LOGIN_FRAGMENT_KEY)!!
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        supportFragmentManager.putFragment(outState, LOGIN_FRAGMENT_KEY, loginFragment)
+    }
 }
 

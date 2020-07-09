@@ -20,6 +20,11 @@ import kotlinx.android.synthetic.main.fragment_login.*
 
 class LoginFragment: Fragment(R.layout.fragment_login) {
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        retainInstance = true
+    }
+
 
 //    private val KEY_FRAGMENT_MAIN = "key_mainFragment"
 //    val mainFragment = MainFragment()
@@ -51,18 +56,11 @@ class LoginFragment: Fragment(R.layout.fragment_login) {
 
             if (isEmailValid && etPassword.text.length > 6 && checkBox.isChecked) {
                 state = state.noError()
-                if (savedInstanceState == null){
+
                     val transaction = fragmentManager?.beginTransaction()
                     val mainFragment = MainFragment()
                     transaction?.replace(R.id.container_mainAct, mainFragment, "main_fragment")
                     transaction?.commit()
-                }
-
-//                val transaction = fragmentManager?.beginTransaction()
-//                val mainFragment = MainFragment()
-//                transaction?.replace(R.id.container_mainAct, mainFragment, "main_fragment")
-//                transaction?.commit()
-
 
             } else {
                 state = state.withError()

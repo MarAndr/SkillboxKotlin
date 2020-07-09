@@ -13,7 +13,10 @@ import androidx.fragment.app.FragmentTransaction
 
 class MainFragment: Fragment(R.layout.fragment_main), ItemSelectListener {
 
-
+    override fun onCreate(savedInstanceState: Bundle?) {
+        retainInstance = true
+        super.onCreate(savedInstanceState)
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -24,11 +27,20 @@ class MainFragment: Fragment(R.layout.fragment_main), ItemSelectListener {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        val transaction = childFragmentManager.beginTransaction()
+        val listFragment = ListFragment()
+
         if (resources.configuration.orientation != Configuration.ORIENTATION_LANDSCAPE){
-            childFragmentManager.beginTransaction()
-                .replace(R.id.container_mainFragment, ListFragment())
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                .commit()
+                transaction
+                    .add(R.id.container_mainFragment, listFragment)
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    .commit()
+        } else {
+            childFragmentManager.findFragmentById(R.id.container_mainFragment)?.let {
+                childFragmentManager.beginTransaction()
+                    .remove(it)
+                    .commit()
+            }
         }
     }
 

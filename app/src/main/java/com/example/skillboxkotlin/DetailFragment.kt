@@ -11,6 +11,11 @@ import kotlinx.android.synthetic.main.fragment_detail.*
 
 class DetailFragment: Fragment(R.layout.fragment_detail) {
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        retainInstance = true
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -21,7 +26,12 @@ class DetailFragment: Fragment(R.layout.fragment_detail) {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        tv_fragmentDetail.text = requireArguments().getString(TEXT_KEY)
+        if (savedInstanceState == null){
+            tv_fragmentDetail.text = requireArguments().getString(TEXT_KEY)
+        } else {
+            tv_fragmentDetail.text = "savedInstanceState isn't null"
+        }
+
     }
 
 
