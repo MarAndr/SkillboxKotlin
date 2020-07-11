@@ -13,26 +13,27 @@ import androidx.fragment.app.FragmentTransaction
 
 class MainFragment: Fragment(R.layout.fragment_main), ItemSelectListener {
 
+    private lateinit var currentChildFragment: Fragment
+    private val KEY_CHILD_FRAGMENT = "key_child_fragment"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         retainInstance = true
         super.onCreate(savedInstanceState)
     }
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return super.onCreateView(inflater, container, savedInstanceState)
-    }
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        currentChildFragment = if (savedInstanceState == null){
+            ListFragment()
+        } else {
+            childFragmentManager.getFragment(savedInstanceState, KEY_CHILD_FRAGMENT)!!
+        }
+
         val transaction = childFragmentManager.beginTransaction()
-        val listFragment = ListFragment()
 
         if (resources.configuration.orientation != Configuration.ORIENTATION_LANDSCAPE){
                 transaction
-                    .add(R.id.container_mainFragment, listFragment)
+                    .replace(R.id.container_mainFragment, currentChildFragment)
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .commit()
         } else {
@@ -42,6 +43,11 @@ class MainFragment: Fragment(R.layout.fragment_main), ItemSelectListener {
                     .commit()
             }
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        childFragmentManager.putFragment(outState, KEY_CHILD_FRAGMENT, currentChildFragment)
     }
 
     override fun onItemSelect(text: String) {

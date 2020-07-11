@@ -18,27 +18,14 @@ import com.example.skillboxkotlin.LoginFragment.Companion.KEY_FORM_STATE
 import kotlinx.android.synthetic.main.fragment_login.*
 
 
-class LoginFragment: Fragment(R.layout.fragment_login) {
+class LoginFragment : Fragment(R.layout.fragment_login) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         retainInstance = true
     }
 
-
-//    private val KEY_FRAGMENT_MAIN = "key_mainFragment"
-//    val mainFragment = MainFragment()
     private var state: FormState = FormState(true, "")
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return super.onCreateView(inflater, container, savedInstanceState)
-    }
-
-
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -56,11 +43,7 @@ class LoginFragment: Fragment(R.layout.fragment_login) {
 
             if (isEmailValid && etPassword.text.length > 6 && checkBox.isChecked) {
                 state = state.noError()
-
-                    val transaction = fragmentManager?.beginTransaction()
-                    val mainFragment = MainFragment()
-                    transaction?.replace(R.id.container_mainAct, mainFragment, "main_fragment")
-                    transaction?.commit()
+                (activity as OpenMainFragment).openMainFragment()
 
             } else {
                 state = state.withError()
@@ -78,7 +61,6 @@ class LoginFragment: Fragment(R.layout.fragment_login) {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putParcelable(KEY_FORM_STATE, state)
-//        fragmentManager?.putFragment(outState, KEY_FRAGMENT_MAIN, mainFragment )
     }
 
     companion object {

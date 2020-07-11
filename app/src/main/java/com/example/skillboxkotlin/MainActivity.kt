@@ -4,21 +4,26 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), OpenMainFragment {
 
-    var loginFragment: Fragment = LoginFragment()
-    private val LOGIN_FRAGMENT_KEY = "fragment key"
-
+    private val FRAGMENT_SAVING_KEY = "fragment key"
+    private lateinit var currentFragment: Fragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-            if (savedInstanceState == null){
-                val transaction = supportFragmentManager.beginTransaction()
-                transaction.add(R.id.container_mainAct, loginFragment)
-                transaction.commit()
-            }
 
+        currentFragment = if (savedInstanceState == null) {
+            LoginFragment()
+        } else {
+            supportFragmentManager.getFragment(savedInstanceState, FRAGMENT_SAVING_KEY)!!
+        }
+
+        setContentView(R.layout.activity_main)
+        if (savedInstanceState == null) {
+            val transaction = supportFragmentManager.beginTransaction()
+            transaction.add(R.id.container_mainAct, currentFragment)
+            transaction.commit()
+        }
 
     }
 
@@ -33,12 +38,21 @@ class MainActivity : AppCompatActivity() {
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        loginFragment = supportFragmentManager.getFragment(savedInstanceState, LOGIN_FRAGMENT_KEY)!!
+        currentFragment =
+            supportFragmentManager.getFragment(savedInstanceState, FRAGMENT_SAVING_KEY)!!
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        supportFragmentManager.putFragment(outState, LOGIN_FRAGMENT_KEY, loginFragment)
+        supportFragmentManager.putFragment(outState, FRAGMENT_SAVING_KEY, currentFragment)
+    }
+
+    override fun openMainFragment() {
+        val transaction = supportFragmentManager.beginTransaction()
+        currentFragment = MainFragment()
+        transaction.replace(R.id.container_mainAct, currentFragment, "main_fragment")
+        transaction.commit()
+
     }
 }
 
