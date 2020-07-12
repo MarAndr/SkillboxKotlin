@@ -36,12 +36,6 @@ class MainActivity : AppCompatActivity(), OpenMainFragment {
         }
     }
 
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-        currentFragment =
-            supportFragmentManager.getFragment(savedInstanceState, FRAGMENT_SAVING_KEY)!!
-    }
-
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         supportFragmentManager.putFragment(outState, FRAGMENT_SAVING_KEY, currentFragment)

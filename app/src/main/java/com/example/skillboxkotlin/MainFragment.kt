@@ -16,10 +16,6 @@ class MainFragment: Fragment(R.layout.fragment_main), ItemSelectListener {
     private lateinit var currentChildFragment: Fragment
     private val KEY_CHILD_FRAGMENT = "key_child_fragment"
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        retainInstance = true
-        super.onCreate(savedInstanceState)
-    }
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -49,6 +45,7 @@ class MainFragment: Fragment(R.layout.fragment_main), ItemSelectListener {
         super.onSaveInstanceState(outState)
         childFragmentManager.putFragment(outState, KEY_CHILD_FRAGMENT, currentChildFragment)
     }
+
 
     override fun onItemSelect(text: String) {
         childFragmentManager.beginTransaction()
