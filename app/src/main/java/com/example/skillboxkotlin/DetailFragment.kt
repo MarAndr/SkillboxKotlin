@@ -26,11 +26,8 @@ class DetailFragment: Fragment(R.layout.fragment_detail) {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        if (savedInstanceState == null){
-            tv_fragmentDetail.text = requireArguments().getString(TEXT_KEY)
-        } else {
-            tv_fragmentDetail.text = "savedInstanceState isn't null"
-        }
+        tv_fragmentDetail.text = requireArguments().getString(TEXT_KEY)
+
 
     }
 
