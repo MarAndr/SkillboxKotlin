@@ -39,7 +39,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         loginButton.setOnClickListener {
 
             val isEmailValid = Patterns.EMAIL_ADDRESS.matcher(etEmail.text.toString()).matches()
-
+            loginButton.isEnabled = false
 
             if (isEmailValid && etPassword.text.length > 6 && checkBox.isChecked) {
                 state = state.noError()
@@ -50,6 +50,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 textView_error.isVisible = true
                 textView_error.text = state.message
                 Handler().postDelayed({
+                    loginButton.isEnabled = true
                     textView_error.isVisible = false
                 }, 5000)
             }
