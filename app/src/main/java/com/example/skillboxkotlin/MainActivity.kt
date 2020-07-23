@@ -18,12 +18,15 @@ class MainActivity : AppCompatActivity(), OpenMainFragment {
             supportFragmentManager.getFragment(savedInstanceState, FRAGMENT_SAVING_KEY)!!
         }
 
+
+
         setContentView(R.layout.activity_main)
         if (savedInstanceState == null) {
             val transaction = supportFragmentManager.beginTransaction()
             transaction.add(R.id.container_mainAct, currentFragment)
             transaction.commit()
         }
+
 
     }
 
