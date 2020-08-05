@@ -3,30 +3,36 @@ package viewPager
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 
 class FilterDialogFragment : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
+
         val tags = makeTagStringList(ArticleFragment.tags)
         val selectedTags = ArrayList<String>()
+        val choosedTags = requireArguments().getBooleanArray(CHOOSED_TAGS_KEY)
 
-        return AlertDialog.Builder(context)
+        val dialog = AlertDialog.Builder(context)
             .setTitle("Применить фильтр")
-            .setMultiChoiceItems(tags, null) { _, which, isChecked ->
+            .setMultiChoiceItems(tags, choosedTags) { _, which, isChecked ->
                 if (isChecked) {
                     tags?.get(which)?.let { selectedTags.add(it) }
                 } else if (selectedTags.contains(tags?.get(which))) {
                     selectedTags.removeAt(which)
                 }
             }
-            .setPositiveButton("Apply") { dialog, _ ->
+            .setPositiveButton("Apply", null)
+            .setNegativeButton("Cancel") { _, _ -> }
+            .create()
+
+
+        dialog.setOnShowListener {
+            (it as AlertDialog).getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
                 if (selectedTags.isNotEmpty()) {
-                    (parentFragment as OnTagsChoose).choosedTag(
-                        selectedTags
-                    )
+                    (parentFragment as CreateArticlesByTags).createArticlesByTags(selectedTags)
+                    dismiss()
                 } else {
                     Toast.makeText(
                         context,
@@ -34,10 +40,23 @@ class FilterDialogFragment : DialogFragment() {
                         Toast.LENGTH_SHORT
                     ).show()
                 }
-
             }
-            .setNegativeButton("Cancel") { _, _ -> }
-            .create()
+        }
+
+        return dialog
+    }
+
+
+
+    companion object {
+
+        const val CHOOSED_TAGS_KEY = "choosed_tags"
+
+        fun newInstance(tags: List<Boolean>): FilterDialogFragment {
+            return FilterDialogFragment().withArguments {
+                putBooleanArray(CHOOSED_TAGS_KEY, tags.toBooleanArray())
+            }
+        }
     }
 
     private fun makeTagStringList(listOfTag: List<ArticleTag>): Array<String>? {
