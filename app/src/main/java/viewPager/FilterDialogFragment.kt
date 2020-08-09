@@ -5,33 +5,40 @@ import android.app.Dialog
 import android.os.Bundle
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import com.example.skillboxkotlin.R
 
 class FilterDialogFragment : DialogFragment() {
+
+    companion object {
+
+        const val CHOOSED_TAGS_KEY = "choosed_tags"
+
+        fun newInstance(tags: BooleanArray): FilterDialogFragment {
+            return FilterDialogFragment().withArguments {
+                putBooleanArray(CHOOSED_TAGS_KEY, tags)
+            }
+        }
+    }
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
+        val choosedTags = requireArguments().getBooleanArray(CHOOSED_TAGS_KEY)!!
+        val tagsArray = ArticleTag.getArrayTags()
 
-        val tags = makeTagStringList(ArticleFragment.tags)
-        val selectedTags = ArrayList<String>()
-        val choosedTags = requireArguments().getBooleanArray(CHOOSED_TAGS_KEY)
 
         val dialog = AlertDialog.Builder(context)
-            .setTitle("Применить фильтр")
-            .setMultiChoiceItems(tags, choosedTags) { _, which, isChecked ->
-                if (isChecked) {
-                    tags?.get(which)?.let { selectedTags.add(it) }
-                } else if (selectedTags.contains(tags?.get(which))) {
-                    selectedTags.removeAt(which)
-                }
+            .setTitle(R.string.dialog_filter_message)
+            .setMultiChoiceItems(tagsArray, choosedTags) { _, which, isChecked ->
+                choosedTags[which] = isChecked
             }
-            .setPositiveButton("Apply", null)
-            .setNegativeButton("Cancel") { _, _ -> }
+            .setPositiveButton(R.string.dialog_filter_positive, null)
+            .setNegativeButton(R.string.dialog_filter_negative) { _, _ -> }
             .create()
-
 
         dialog.setOnShowListener {
             (it as AlertDialog).getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
-                if (selectedTags.isNotEmpty()) {
-                    (parentFragment as CreateArticlesByTags).createArticlesByTags(selectedTags)
+                if (choosedTags.isNotEmpty()) {
+                    (parentFragment as DialogResultListener).applyFilter(choosedTags)
                     dismiss()
                 } else {
                     Toast.makeText(
@@ -42,31 +49,6 @@ class FilterDialogFragment : DialogFragment() {
                 }
             }
         }
-
         return dialog
     }
-
-
-
-    companion object {
-
-        const val CHOOSED_TAGS_KEY = "choosed_tags"
-
-        fun newInstance(tags: List<Boolean>): FilterDialogFragment {
-            return FilterDialogFragment().withArguments {
-                putBooleanArray(CHOOSED_TAGS_KEY, tags.toBooleanArray())
-            }
-        }
-    }
-
-    private fun makeTagStringList(listOfTag: List<ArticleTag>): Array<String>? {
-        val mutableList: ArrayList<String> = arrayListOf("")
-        listOfTag.forEach {
-            mutableList.add(it.name)
-        }
-        mutableList.remove("")
-        return mutableList.toTypedArray()
-    }
-
-
 }
