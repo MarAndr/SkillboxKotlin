@@ -24,20 +24,22 @@ class ViewPagerFragment : Fragment(R.layout.fragment_viewpager), MakeBadge, Dial
 
         articles = Repository().getArticles()
 
-        if (savedInstanceState == null) {
-            val tagsStateArray = savedInstanceState?.getBooleanArray(CHOOSED_TAGS_KEY)
+        if (savedInstanceState != null) {
+            val tagsStateArray = savedInstanceState.getBooleanArray(CHOOSED_TAGS_KEY)
+            filteredArticles = savedInstanceState?.getParcelableArray(KEY_DATA)!!
+                .toMutableList() as MutableList<ArticlesData>
             tagsStateArray?.copyInto(tagsState)
             updateData()
             makeViewPager()
         } else {
-            filteredArticles = savedInstanceState.getParcelableArray(KEY_DATA)!!.toMutableList() as MutableList<ArticlesData>
+            updateData()
             makeViewPager()
         }
 
         setupToolbar()
     }
 
-    fun setupToolbar(){
+    fun setupToolbar() {
         toolbar_viewPagerFragment.setOnMenuItemClickListener { menuItem: MenuItem? ->
             when (menuItem?.itemId) {
                 R.id.filterItem_menuViewPager -> {
@@ -51,7 +53,7 @@ class ViewPagerFragment : Fragment(R.layout.fragment_viewpager), MakeBadge, Dial
         }
     }
 
-    private fun createFilterDialog(){
+    private fun createFilterDialog() {
         FilterDialogFragment.newInstance(tagsState.copyOf())
             .show(childFragmentManager, "dialogFragment")
     }
@@ -103,7 +105,7 @@ class ViewPagerFragment : Fragment(R.layout.fragment_viewpager), MakeBadge, Dial
         })
 
         TabLayoutMediator(tabLayout, viewPager_viewPagerFragment) { tab, position ->
-                tab.text = filteredArticles[position].header
+            tab.text = filteredArticles[position].header
 
         }.attach()
 
@@ -122,13 +124,13 @@ class ViewPagerFragment : Fragment(R.layout.fragment_viewpager), MakeBadge, Dial
         makeViewPager()
     }
 
-    private fun updateData(){
+    private fun updateData() {
         val filterSet = convertBooleanStateToTags()
         filteredArticles = getFilteredArticleByTag(filterSet)
 
     }
 
-    private fun convertBooleanStateToTags(): Set<ArticleTag>{
+    private fun convertBooleanStateToTags(): Set<ArticleTag> {
         val filteredTags = mutableListOf<ArticleTag>()
         tagsState.forEachIndexed { index, isChecked ->
             if (isChecked) filteredTags.add(ArticleTag.values()[index])
