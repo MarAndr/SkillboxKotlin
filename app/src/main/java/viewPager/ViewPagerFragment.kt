@@ -16,6 +16,7 @@ class ViewPagerFragment : Fragment(R.layout.fragment_viewpager), MakeBadge, Dial
 
     private lateinit var articles: List<ArticlesData>
     private lateinit var filteredArticles: List<ArticlesData>
+    private lateinit var articlesAdapter: Adapter
     private val KEY_DATA = "key_data"
     private val tagsState = BooleanArray(ArticleTag.getArrayTags().size) { true }
 
@@ -31,6 +32,13 @@ class ViewPagerFragment : Fragment(R.layout.fragment_viewpager), MakeBadge, Dial
             tagsStateArray?.copyInto(tagsState)
             updateData()
             makeViewPager()
+            filteredArticles.forEachIndexed { i, article ->
+                val badgeCount = savedInstanceState.getInt(article.header)
+                if (badgeCount > 0) {
+                    tabLayout.getTabAt(i)?.orCreateBadge?.number = badgeCount
+                    tabLayout.getTabAt(i)?.orCreateBadge?.badgeGravity = BadgeDrawable.TOP_END
+                }
+            }
         } else {
             updateData()
             makeViewPager()
@@ -62,18 +70,36 @@ class ViewPagerFragment : Fragment(R.layout.fragment_viewpager), MakeBadge, Dial
         super.onSaveInstanceState(outState)
         outState.putParcelableArray(KEY_DATA, filteredArticles.toTypedArray())
         outState.putBooleanArray(CHOOSED_TAGS_KEY, tagsState)
+        filteredArticles.forEachIndexed { i, article ->
+            outState.putInt(article.header, tabLayout.getTabAt(i)?.badge?.number ?: 0)
+        }
     }
 
     override fun makeBadge() {
-        tabLayout.getTabAt(Random.nextInt(0, tabLayout.tabCount))?.orCreateBadge?.apply {
+        someAction(tabLayout.selectedTabPosition, articlesAdapter.itemCount)
+    }
+
+    private fun someAction(currentTab: Int, tabSize: Int) {
+
+        if (tabSize < 2) return
+        val randomTab = getSpecialRandom(currentTab, tabSize)
+        tabLayout.getTabAt(randomTab)?.orCreateBadge?.apply {
             number += 1
             badgeGravity = BadgeDrawable.TOP_END
         }
     }
 
+    private fun getSpecialRandom(current: Int, size: Int): Int {
+        var number = current
+        while (number == current) {
+            number = Random.nextInt(size)
+        }
+        return number
+    }
+
     fun makeViewPager() {
-        val adapter = Adapter(this, filteredArticles)
-        viewPager_viewPagerFragment.adapter = adapter
+        articlesAdapter = Adapter(this, filteredArticles)
+        viewPager_viewPagerFragment.adapter = articlesAdapter
         spring_dots_indicator.setViewPager2(viewPager_viewPagerFragment)
         viewPager_viewPagerFragment.setPageTransformer(object : ViewPager2.PageTransformer {
 
@@ -106,17 +132,19 @@ class ViewPagerFragment : Fragment(R.layout.fragment_viewpager), MakeBadge, Dial
 
         TabLayoutMediator(tabLayout, viewPager_viewPagerFragment) { tab, position ->
             tab.text = filteredArticles[position].header
-
         }.attach()
 
         viewPager_viewPagerFragment.registerOnPageChangeCallback(object :
             ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                tabLayout.getTabAt(position)?.removeBadge()
+                updateCurrentPage(position)
             }
         })
     }
+
+    private fun updateCurrentPage(currentPage: Int) =
+        tabLayout.getTabAt(currentPage)?.removeBadge()
 
     override fun applyFilter(filter: BooleanArray) {
         filter.copyInto(tagsState)
