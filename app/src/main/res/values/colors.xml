@@ -4,4 +4,6 @@
     <color name="colorPrimaryDark">#c79100</color>
     <color name="colorAccent">#DA7197</color>
     <color name="toolbar">#ffc107</color>
+    <color name="material_yellow">#FFC438</color>
+    <color name="material_white">@android:color/white</color>
 </resources>
