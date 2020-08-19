@@ -1,52 +1,22 @@
 <resources>
 
-    <string name="recommendText">Ваши данные:</string>
-    <string name="checkBoxConvention">Принять соглашения</string>
-    <string name="buttonLogin">Login</string>
-    <string name="enterPassword">Введите пароль</string>
-    <string name="enterEmail">Введите email</string>
-    <string name="imageDescription">image</string>
-    <string name="app_name">app_name</string>
-    <string name="ZenitListTextView">Зенит</string>
-    <string name="LokoListTextView">Локомотив</string>
-    <string name="KrasnodarListTextView">Краснодар</string>
-    <string name="RostovListTextView">Ростов</string>
-    <string name="CskaListTextView">ЦСКА</string>
-    <string name="dialog_filter_message">Выберите категории:</string>
-    <string name="dialog_filter_positive">Применить</string>
-    <string name="dialog_filter_negative">Отменить</string>
-
-    <string name="ZenitInfo">
-        «Зени́т» — советский и российский футбольный клуб из Санкт-Петербурга,
-        выступающий в премьер-лиге. \n\nПятикратный чемпион России,
-        трёхкратный обладатель Кубка России, обладатель Кубка Премьер-лиги 2003, обладатель Кубка УЕФА 2007/08,
-        обладатель Суперкубка УЕФА 2008.
-    </string>
-
-    <string name="LokoInfo">
-        «Локомоти́в» — российский профессиональный футбольный клуб из Москвы.Основан 23 июля 1922 года.\n\n
-        Один из старейших футбольных клубов России, ведущий свою историю с момента основания команды «Казанка»
-        при Московско-Казанской железной дороге, затем неоднократно менявший своё название.
-    </string>
-
-    <string name="KrasnodarInfo">
-        «Краснода́р» — российский профессиональный футбольный клуб из Краснодара,
-        выступающий в чемпионате России. \n\n
-        Основан 22 февраля 2008 года. Финалист Кубка России сезона 2013/14,
-        бронзовый призёр чемпионата России сезона 2014/15 и 2018/19.
-    </string>
-
-    <string name="RostovInfo">
-        «Росто́в» — российский футбольный клуб из Ростова-на-Дону. Основан 10 мая 1930 года. \n\n
-        В 1950 году клуб впервые принял участие в розыгрыше чемпионата СССР по футболу.\n\n
-        Наивысшего результата достиг в 1991 году, заняв 4-е место в турнире клубов Первой лиги
-    </string>
-
-    <string name="CSKAInfo">
-        ЦСКА — российский футбольный клуб из Москвы, в прошлом — часть Центрального спортивного клуба Армии.\n\n
-        Один из старейших и самых титулованных клубов в постсоветской истории российского футбола,\n
-        ведущий свою историю от команды ОЛЛС (Общество любителей лыжного спорта), основанной в 1911 году.\n\n
-
-    </string>
+    <string name="DiCaprioName">Leonardo DiCaprio</string>
+    <string name="PittName">Brad Pitt</string>
+    <string name="CooperName">Bradley Cooper</string>
+    <string name="SpielbergName">Steven Spielberg</string>
+    <string name="JarmuschName">Jim Jarmusch</string>
+    <string name="GilliamName">Terry Gilliam</string>
+    <string name="avatarDiCaprioLink">https://st.kp.yandex.net/images/actor_iphone/iphone360_37859.jpg</string>
+    <string name="avatarPittLink">https://st.kp.yandex.net/images/actor_iphone/iphone360_25584.jpg</string>
+    <string name="avatarCooperLink">https://st.kp.yandex.net/images/actor_iphone/iphone360_51434.jpg</string>
+    <string name="avatarSpielbergLink">https://st.kp.yandex.net/images/actor_iphone/iphone360_22260.jpg</string>
+    <string name="avatarJarmuschLink">https://st.kp.yandex.net/images/actor_iphone/iphone360_22412.jpg</string>
+    <string name="avatarGilliamLink">https://st.kp.yandex.net/images/actor_iphone/iphone360_42918.jpg</string>
+    <string name="comedyGenre">Comedy</string>
+    <string name="dramaGenre">Drama</string>
+    <string name="adventuresGenre">Adventures</string>
+    <string name="awardTitle">Academy Award</string>
+    <string name="agePlaceHolder">%1$d years old</string>
+    <string name="genrePlaceHolder">Genre: %1$s</string>
 
 </resources>
