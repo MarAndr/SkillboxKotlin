@@ -73,7 +73,7 @@ class MovieFiguresListFragment : Fragment(R.layout.fragment_listfragment), Dialo
     }
 
     private fun addMovieFigure(){
-        val movieFiguresName = etName_dialogFragment.text.toString()
+        val movieFiguresName = etName_dialogFragment.text.toString() //компилятор пишет, что это поле не может быть null, хотя инфу я туда передаю.
         val movieFiguresAge = etAge_dialogFragment.text.toString().toInt()
         val newMovieFigure = MovieFigures.Actor(name = movieFiguresName, age = movieFiguresAge, avatarLink = "https://cdn.pixabay.com/photo/2014/04/03/10/32/businessman-310819_960_720.png", isGetOscar = true)
         movieFigures = listOf(newMovieFigure) + movieFigures
