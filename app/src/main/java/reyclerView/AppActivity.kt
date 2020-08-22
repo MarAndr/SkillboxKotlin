@@ -7,7 +7,10 @@ import com.example.skillboxkotlin.R
 class AppActivity: AppCompatActivity(R.layout.activity_appactivity) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        createListFragment()
+        if (savedInstanceState == null){
+            createListFragment()
+        }
+
     }
 
     private fun createListFragment(){
