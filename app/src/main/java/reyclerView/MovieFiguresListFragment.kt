@@ -2,11 +2,14 @@ package reyclerView
 
 import android.content.Context
 import android.os.Bundle
+import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.skillboxkotlin.R
+import kotlinx.android.synthetic.main.dialog_dialogfragment.*
 import kotlinx.android.synthetic.main.fragment_listfragment.*
 
 class MovieFiguresListFragment : Fragment(R.layout.fragment_listfragment), DialogButtonClick {
@@ -16,7 +19,7 @@ class MovieFiguresListFragment : Fragment(R.layout.fragment_listfragment), Dialo
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         if (savedInstanceState != null){
-            movieFigures = savedInstanceState.getParcelableArray("key")!!
+            movieFigures = savedInstanceState.getParcelableArray(KEY_MOVIE_FIGURES_LIST)!!
                 .toList() as List<MovieFigures>
         } else {
             movieFigures = listOf(
@@ -83,12 +86,12 @@ class MovieFiguresListFragment : Fragment(R.layout.fragment_listfragment), Dialo
     }
 
     private fun addMovieFigure(name: String, age: Int, profession: String){
+        tv_movieFiguresListFragment.visibility = View.GONE
         val newMovieFigure = when(profession){
             "Actor" -> MovieFigures.Actor(name = name, age = age, avatarLink = "", isGetOscar = true)
             "Director" -> MovieFigures.FilmDirector(name = name, age = age, avatarLink = "", isGetOscar = true, genres = "comedy")
             else -> error("wrong choosing of profession")
         }
-
         movieFigures = listOf(newMovieFigure) + movieFigures
         movieFiguresAdapter?.updateMovieFigures(movieFigures)
         movieFiguresAdapter?.notifyItemInserted(0)
@@ -100,7 +103,7 @@ class MovieFiguresListFragment : Fragment(R.layout.fragment_listfragment), Dialo
         movieFiguresAdapter?.updateMovieFigures(movieFigures)
         movieFiguresAdapter?.notifyItemRemoved(position)
         if (movieFigures.isEmpty()){
-            container_listFragment.addView(addTextView(requireContext()))
+            tv_movieFiguresListFragment.visibility = View.VISIBLE
         }
 
     }
@@ -110,13 +113,6 @@ class MovieFiguresListFragment : Fragment(R.layout.fragment_listfragment), Dialo
     }
 
     override fun onNegativeButtonClick() {
-        Toast.makeText(context, "on negative", Toast.LENGTH_SHORT).show()
-    }
-
-    private fun addTextView(context: Context) = TextView(context).apply {
-        text = "The list is empty"
-        textSize = 30f
-        setPadding(220,600,0,0)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
