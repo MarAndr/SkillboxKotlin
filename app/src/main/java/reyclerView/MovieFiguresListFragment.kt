@@ -1,24 +1,20 @@
 package reyclerView
 
-import android.content.Context
 import android.os.Bundle
 import android.view.View
-import android.widget.TextView
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.skillboxkotlin.R
-import kotlinx.android.synthetic.main.dialog_dialogfragment.*
 import kotlinx.android.synthetic.main.fragment_listfragment.*
 
 class MovieFiguresListFragment : Fragment(R.layout.fragment_listfragment), DialogButtonClick {
-    var movieFigures: List<MovieFigures> = emptyList()
-    var movieFiguresAdapter: Adapter? = null
-    val KEY_MOVIE_FIGURES_LIST = "key_movie_figures_lis"
+    private var movieFigures: List<MovieFigures> = emptyList()
+    private var movieFiguresAdapter by autoCleared<Adapter>()
+    private val KEY_MOVIE_FIGURES_LIST = "key_movie_figures_lis"
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        if (savedInstanceState != null){
+        if (savedInstanceState != null) {
             movieFigures = savedInstanceState.getParcelableArray(KEY_MOVIE_FIGURES_LIST)!!
                 .toList() as List<MovieFigures>
         } else {
@@ -67,52 +63,65 @@ class MovieFiguresListFragment : Fragment(R.layout.fragment_listfragment), Dialo
             makeDialog()
         }
 
-        movieFiguresAdapter?.updateMovieFigures(movieFigures)
-        movieFiguresAdapter?.notifyDataSetChanged()
+        updateAdapter()
+        movieFiguresAdapter.notifyDataSetChanged()
 
     }
 
     private fun init() {
         movieFiguresAdapter = Adapter { position: Int -> deleteMovieFigure(position) }
-        with(itemView_listFragment){
+        with(itemView_listFragment) {
             adapter = movieFiguresAdapter
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
         }
     }
 
-    private fun makeDialog(){
-        AddInfoDialogFragment().show(childFragmentManager, "dialogFragment")
+    private fun makeDialog() {
+        InfoDialogFragment().show(childFragmentManager, "dialogFragment")
     }
 
-    private fun addMovieFigure(name: String, age: Int, profession: String){
-        tv_movieFiguresListFragment.visibility = View.GONE
-        val newMovieFigure = when(profession){
-            "Actor" -> MovieFigures.Actor(name = name, age = age, avatarLink = "", isGetOscar = true)
-            "Director" -> MovieFigures.FilmDirector(name = name, age = age, avatarLink = "", isGetOscar = true, genres = "comedy")
+    private fun addMovieFigure(name: String, age: Int, profession: String, isAward: Boolean) {
+        val newMovieFigure = when (profession) {
+            "Actor" -> MovieFigures.Actor(
+                name = name,
+                age = age,
+                avatarLink = "",
+                isGetOscar = isAward
+            )
+            "Director" -> MovieFigures.FilmDirector(
+                name = name,
+                age = age,
+                avatarLink = "",
+                isGetOscar = isAward,
+                genres = "comedy"
+            )
             else -> error("wrong choosing of profession")
         }
         movieFigures = listOf(newMovieFigure) + movieFigures
-        movieFiguresAdapter?.updateMovieFigures(movieFigures)
-        movieFiguresAdapter?.notifyItemInserted(0)
+        updateAdapter()
+        movieFiguresAdapter.notifyItemInserted(0)
         itemView_listFragment.scrollToPosition(0)
     }
 
-    private fun deleteMovieFigure(position: Int){
+    private fun deleteMovieFigure(position: Int) {
         movieFigures = movieFigures.filterIndexed { index, movieFigures -> index != position }
-        movieFiguresAdapter?.updateMovieFigures(movieFigures)
-        movieFiguresAdapter?.notifyItemRemoved(position)
-        if (movieFigures.isEmpty()){
-            tv_movieFiguresListFragment.visibility = View.VISIBLE
-        }
-
+        updateAdapter()
+        movieFiguresAdapter.notifyItemRemoved(position)
     }
 
-    override fun onPositiveButtonClick(name: String, age: Int, profession: String) {
-        addMovieFigure(name, age, profession)
+    private fun updateAdapter() {
+        tv_movieFiguresListFragment.isVisible = movieFigures.isEmpty()
+        movieFiguresAdapter.updateMovieFigures(movieFigures)
     }
 
-    override fun onNegativeButtonClick() {
+    override fun onPositiveButtonClick(
+        name: String,
+        age: Int,
+        profession: String,
+        isAward: Boolean
+    ) {
+        addMovieFigure(name, age, profession, isAward)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

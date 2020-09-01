@@ -18,9 +18,14 @@
     <string name="awardTitle">Academy Award</string>
     <string name="agePlaceHolder">%1$d years old</string>
     <string name="genrePlaceHolder">Genre: %1$s</string>
-    <string-array name="catNames">
+    <string-array name="movieFigureNames">
         <item>Actor</item>
         <item>Director</item>
+    </string-array>
+    <string-array name="movieGenre">
+        <item>Сomedy</item>
+        <item>Horror</item>
+        <item>Drama</item>
     </string-array>
 
 </resources>
