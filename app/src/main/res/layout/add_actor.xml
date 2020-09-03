@@ -8,34 +8,17 @@
 
 
     <TextView
-        android:layout_marginTop="30dp"
-        android:id="@+id/tvProfession_dialog"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:text="Choose profession:"
-        android:textColor="@android:color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:entries="@array/movieFigureNames"
-        app:layout_constraintStart_toStartOf="@id/tvProfession_dialog"
-        app:layout_constraintTop_toBottomOf="@id/tvProfession_dialog" />
-
-    <TextView
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:id="@+id/tvName_dialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
         android:text="Add name:"
+        app:layout_constraintTop_toTopOf="parent"
         android:textColor="@android:color/black"
-        app:layout_constraintStart_toStartOf="@id/tvProfession_dialog"
-        app:layout_constraintTop_toBottomOf="@+id/spinner" />
+        app:layout_constraintStart_toStartOf="parent"
+         />
 
     <EditText
         android:id="@+id/etName_dialogFragment"
@@ -44,16 +27,17 @@
         android:layout_gravity="center_horizontal"
         android:hint="name"
         android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="@id/tvProfession_dialog"
+        app:layout_constraintStart_toStartOf="@id/tvName_dialog"
         app:layout_constraintTop_toBottomOf="@id/tvName_dialog" />
 
     <TextView
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:id="@+id/tvAge_dialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add age:"
         android:textColor="@android:color/black"
-        app:layout_constraintStart_toStartOf="@id/tvProfession_dialog"
+        app:layout_constraintStart_toStartOf="@id/tvName_dialog"
         app:layout_constraintTop_toBottomOf="@id/etName_dialogFragment" />
 
     <EditText
@@ -63,35 +47,17 @@
         android:layout_gravity="center_horizontal"
         android:hint="age"
         android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="@+id/tvProfession_dialog"
+        app:layout_constraintStart_toStartOf="@+id/tvAge_dialog"
         app:layout_constraintTop_toBottomOf="@id/tvAge_dialog" />
 
     <Switch
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:id="@+id/switchAcademyAward_dialogFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Academy Award"
         app:layout_constraintStart_toStartOf="@+id/etAge_dialogFragment"
         app:layout_constraintTop_toBottomOf="@+id/etAge_dialogFragment" />
-
-    <TextView
-        android:visibility="invisible"
-        android:text="Choose genre"
-        app:layout_constraintTop_toBottomOf="@+id/switchAcademyAward_dialogFragment"
-        app:layout_constraintStart_toStartOf="@+id/switchAcademyAward_dialogFragment"
-        android:id="@+id/tv_choosingGenre"
-        android:textColor="@android:color/black"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <Spinner
-        android:visibility="invisible"
-        android:entries="@array/movieGenre"
-        app:layout_constraintStart_toStartOf="@+id/switchAcademyAward_dialogFragment"
-        app:layout_constraintTop_toBottomOf="@+id/tv_choosingGenre"
-        android:id="@+id/spinnerGenre"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

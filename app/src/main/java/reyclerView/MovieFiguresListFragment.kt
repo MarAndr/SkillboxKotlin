@@ -1,7 +1,7 @@
 package reyclerView
 
+import android.app.AlertDialog
 import android.os.Bundle
-import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -9,45 +9,53 @@ import com.example.skillboxkotlin.R
 import kotlinx.android.synthetic.main.fragment_listfragment.*
 
 class MovieFiguresListFragment : Fragment(R.layout.fragment_listfragment), DialogButtonClick {
-    private var movieFigures: List<MovieFigures> = emptyList()
+
+    private var movieFigures = arrayListOf<MovieFigure>()
     private var movieFiguresAdapter by autoCleared<Adapter>()
-    private val KEY_MOVIE_FIGURES_LIST = "key_movie_figures_lis"
+    private var dialog: AlertDialog? = null
+    private var isDialog = false
+
+    companion object {
+        private const val KEY_MOVIE_FIGURES_LIST = "key_movie_figures_list"
+        private const val IS_DIALOG = "is_dialog"
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         if (savedInstanceState != null) {
-            movieFigures = savedInstanceState.getParcelableArray(KEY_MOVIE_FIGURES_LIST)!!
-                .toList() as List<MovieFigures>
+            movieFigures = savedInstanceState.getParcelableArrayList(KEY_MOVIE_FIGURES_LIST)!!
+            isDialog = savedInstanceState.getBoolean(IS_DIALOG)
         } else {
-            movieFigures = listOf(
-                MovieFigures.Actor(
+            movieFigures = arrayListOf(
+                MovieFigure.Actor(
                     name = resources.getString(R.string.DiCaprioName),
                     age = 45,
                     avatarLink = resources.getString(R.string.avatarDiCaprioLink),
                     isGetOscar = true
                 ),
-                MovieFigures.Actor(
+                MovieFigure.Actor(
                     name = resources.getString(R.string.PittName),
                     age = 56,
                     avatarLink = resources.getString(R.string.avatarPittLink),
                     isGetOscar = true
-                ), MovieFigures.Actor(
+                ), MovieFigure.Actor(
                     name = resources.getString(R.string.CooperName),
                     age = 45,
                     avatarLink = resources.getString(R.string.avatarCooperLink),
                     isGetOscar = false
-                ), MovieFigures.FilmDirector(
+                ), MovieFigure.FilmDirector(
                     name = resources.getString(R.string.SpielbergName),
                     age = 73,
                     avatarLink = resources.getString(R.string.avatarSpielbergLink),
                     genres = resources.getString(R.string.adventuresGenre),
                     isGetOscar = true
-                ), MovieFigures.FilmDirector(
+                ), MovieFigure.FilmDirector(
                     name = resources.getString(R.string.JarmuschName),
                     age = 67,
                     avatarLink = resources.getString(R.string.avatarJarmuschLink),
                     genres = resources.getString(R.string.dramaGenre),
                     isGetOscar = false
-                ), MovieFigures.FilmDirector(
+                ), MovieFigure.FilmDirector(
                     name = resources.getString(R.string.GilliamName),
                     age = 79,
                     avatarLink = resources.getString(R.string.avatarGilliamLink),
@@ -56,15 +64,13 @@ class MovieFiguresListFragment : Fragment(R.layout.fragment_listfragment), Dialo
                 )
             )
         }
-
-
         init()
         fab_listFragment.setOnClickListener {
-            makeDialog()
+            selectMovieFigure()
         }
-
         updateAdapter()
         movieFiguresAdapter.notifyDataSetChanged()
+        if (isDialog) selectMovieFigure()
 
     }
 
@@ -77,35 +83,32 @@ class MovieFiguresListFragment : Fragment(R.layout.fragment_listfragment), Dialo
         }
     }
 
-    private fun makeDialog() {
-        InfoDialogFragment().show(childFragmentManager, "dialogFragment")
+    private fun selectMovieFigure() {
+        isDialog = true
+        val listOfFigures = MovieFigureEnum.values().map { it.movieFigureName }.toTypedArray()
+        dialog = AlertDialog.Builder(requireContext())
+            .setTitle("Choose a profession of a movie figure")
+            .setNegativeButton(R.string.cancel) { _, _ -> }
+            .setItems(listOfFigures) { _, which ->
+                val movieFigureDialogFragment = InfoDialogFragment.newInstance(which)
+                movieFigureDialogFragment.show(childFragmentManager, listOfFigures[which])
+                isDialog = false
+            }
+            .setOnCancelListener { isDialog = false }
+            .show()
+
     }
 
-    private fun addMovieFigure(name: String, age: Int, profession: String, isAward: Boolean) {
-        val newMovieFigure = when (profession) {
-            "Actor" -> MovieFigures.Actor(
-                name = name,
-                age = age,
-                avatarLink = "",
-                isGetOscar = isAward
-            )
-            "Director" -> MovieFigures.FilmDirector(
-                name = name,
-                age = age,
-                avatarLink = "",
-                isGetOscar = isAward,
-                genres = "comedy"
-            )
-            else -> error("wrong choosing of profession")
-        }
-        movieFigures = listOf(newMovieFigure) + movieFigures
+    private fun addMovieFigure(movieFigure: MovieFigure) {
+        movieFigures.add(0, movieFigure)
         updateAdapter()
         movieFiguresAdapter.notifyItemInserted(0)
         itemView_listFragment.scrollToPosition(0)
     }
 
     private fun deleteMovieFigure(position: Int) {
-        movieFigures = movieFigures.filterIndexed { index, movieFigures -> index != position }
+        if (position !in 0..movieFigures.size) return
+        movieFigures.removeAt(position)
         updateAdapter()
         movieFiguresAdapter.notifyItemRemoved(position)
     }
@@ -115,17 +118,18 @@ class MovieFiguresListFragment : Fragment(R.layout.fragment_listfragment), Dialo
         movieFiguresAdapter.updateMovieFigures(movieFigures)
     }
 
-    override fun onPositiveButtonClick(
-        name: String,
-        age: Int,
-        profession: String,
-        isAward: Boolean
-    ) {
-        addMovieFigure(name, age, profession, isAward)
+    override fun onPositiveButtonClick(movieFigure: MovieFigure) {
+        addMovieFigure(movieFigure)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putParcelableArray(KEY_MOVIE_FIGURES_LIST, movieFigures.toTypedArray())
+        outState.putParcelableArrayList(KEY_MOVIE_FIGURES_LIST, movieFigures)
+        outState.putBoolean(IS_DIALOG, isDialog)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        dialog?.dismiss()
     }
 }

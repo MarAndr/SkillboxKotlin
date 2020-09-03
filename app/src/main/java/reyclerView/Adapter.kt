@@ -4,7 +4,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.skillboxkotlin.R
@@ -13,7 +12,7 @@ class Adapter(
     private val onItemClick: (position: Int) -> Unit
 ): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
-    private var movieFigures: List<MovieFigures> = emptyList()
+    private var movieFigures: List<MovieFigure> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when(viewType){
@@ -25,8 +24,8 @@ class Adapter(
 
     override fun getItemViewType(position: Int): Int {
         return when(movieFigures[position]){
-            is  MovieFigures.Actor -> TYPE_ACTOR
-            is  MovieFigures.FilmDirector -> TYPE_DIRECTOR
+            is  MovieFigure.Actor -> TYPE_ACTOR
+            is  MovieFigure.FilmDirector -> TYPE_DIRECTOR
         }
     }
 
@@ -37,12 +36,12 @@ class Adapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when(holder){
             is ActorHolder -> {
-                val movieFigure = movieFigures[position].let { it as? MovieFigures.Actor }
+                val movieFigure = movieFigures[position].let { it as? MovieFigure.Actor }
                     ?: error("Movie Figure on position = $position is not actor")
                 holder.bind(movieFigure)
             }
             is DirectorHodler -> {
-            val movieFigure = movieFigures[position].let { it as? MovieFigures.FilmDirector }
+            val movieFigure = movieFigures[position].let { it as? MovieFigure.FilmDirector }
                 ?: error("Movie Figure on position = $position is not film director")
             holder.bind(movieFigure)
         }
@@ -86,7 +85,7 @@ class Adapter(
         view: View,
         onItemClick: (position: Int) -> Unit
     ): BaseMovieFiguresHolder(view, onItemClick){
-        fun bind(movieFigure: MovieFigures.Actor){
+        fun bind(movieFigure: MovieFigure.Actor){
             bindMainInfo(movieFigure.name, movieFigure.age, movieFigure.isGetOscar, movieFigure.avatarLink)
         }
     }
@@ -97,14 +96,14 @@ class Adapter(
     ): BaseMovieFiguresHolder(view, onItemClick){
         val textViewGenres = view.findViewById<TextView>(R.id.genreTextView)
 
-        fun bind(movieFigure: MovieFigures.FilmDirector){
+        fun bind(movieFigure: MovieFigure.FilmDirector){
             bindMainInfo(movieFigure.name, movieFigure.age, movieFigure.isGetOscar, movieFigure.avatarLink)
 
             textViewGenres.text = itemView.context.resources.getString(R.string.genrePlaceHolder, movieFigure.genres)
         }
     }
 
-    fun updateMovieFigures(newMovieFigure: List<MovieFigures>){
+    fun updateMovieFigures(newMovieFigure: List<MovieFigure>){
         movieFigures = newMovieFigure
     }
 

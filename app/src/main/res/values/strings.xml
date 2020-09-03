@@ -18,6 +18,7 @@
     <string name="awardTitle">Academy Award</string>
     <string name="agePlaceHolder">%1$d years old</string>
     <string name="genrePlaceHolder">Genre: %1$s</string>
+    <string name="cancel">cancel</string>
     <string-array name="movieFigureNames">
         <item>Actor</item>
         <item>Director</item>

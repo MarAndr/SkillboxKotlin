@@ -1,19 +1,16 @@
 package reyclerView
 
-import android.os.Build
 import android.os.Parcel
 import android.os.Parcelable
-import androidx.annotation.RequiresApi
-import java.io.Serializable
 
-sealed class MovieFigures: Parcelable {
+sealed class MovieFigure: Parcelable {
 
     data class Actor(
         val name: String,
         val age: Int,
         val avatarLink: String,
         val isGetOscar: Boolean
-    ): MovieFigures(), Parcelable {
+    ): MovieFigure(), Parcelable {
         constructor(parcel: Parcel) : this(
             parcel.readString().orEmpty(),
             parcel.readInt(),
@@ -51,7 +48,7 @@ sealed class MovieFigures: Parcelable {
         val avatarLink: String,
         val genres: String,
         val isGetOscar: Boolean
-    ) : MovieFigures(), Parcelable {
+    ) : MovieFigure(), Parcelable {
         constructor(parcel: Parcel) : this(
             parcel.readString().orEmpty(),
             parcel.readInt(),
@@ -83,4 +80,9 @@ sealed class MovieFigures: Parcelable {
             }
         }
     }
+}
+
+enum class MovieFigureEnum(val movieFigureName: String) {
+    ACTOR("Actor"),
+    FILM_DIRECTOR("Film director");
 }
