@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme">
 
 
-        <activity android:name="viewPager.AppActivity">
+        <activity android:name="reyclerView.AppActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
