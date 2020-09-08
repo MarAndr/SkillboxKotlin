@@ -10,10 +10,10 @@ import reyclerView.data.MovieFigure
 import reyclerView.extensions.inflate
 
 class FilmDirectorAdapterDelegate(private val onItemClick: (position: Int) -> Unit) :
-    AbsListItemAdapterDelegate<MovieFigure.FilmDirector, MovieFigure, FilmDirectorAdapterDelegate.DirectorHodler>() {
+    AbsListItemAdapterDelegate<MovieFigure.FilmDirector, MovieFigure, FilmDirectorAdapterDelegate.DirectorHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup): DirectorHodler {
-        return DirectorHodler(
+    override fun onCreateViewHolder(parent: ViewGroup): DirectorHolder {
+        return DirectorHolder(
             parent.inflate(R.layout.item_director, false),
             onItemClick)
     }
@@ -28,13 +28,13 @@ class FilmDirectorAdapterDelegate(private val onItemClick: (position: Int) -> Un
 
     override fun onBindViewHolder(
         item: MovieFigure.FilmDirector,
-        holder: DirectorHodler,
+        holder: DirectorHolder,
         payloads: MutableList<Any>
     ) {
         holder.bind(item)
     }
 
-    class DirectorHodler(
+    class DirectorHolder(
         view: View,
         onItemClick: (position: Int) -> Unit
     ): BaseMovieFiguresHolder(view, onItemClick), LayoutContainer{

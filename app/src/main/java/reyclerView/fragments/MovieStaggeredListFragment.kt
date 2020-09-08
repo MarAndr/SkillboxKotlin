@@ -85,7 +85,6 @@ class MovieStaggeredListFragment : Fragment(R.layout.fragment_listfragment),
             selectMovieFigure()
         }
         updateAdapter()
-        movieFiguresAdapter.notifyDataSetChanged()
         if (isDialog) selectMovieFigure()
 
     }
@@ -121,7 +120,6 @@ class MovieStaggeredListFragment : Fragment(R.layout.fragment_listfragment),
     private fun addMovieFigure(movieFigure: MovieFigure) {
         movieFigures.add(0, movieFigure)
         updateAdapter()
-        movieFiguresAdapter.notifyItemInserted(0)
         itemView_listFragment.scrollToPosition(0)
     }
 
@@ -129,7 +127,6 @@ class MovieStaggeredListFragment : Fragment(R.layout.fragment_listfragment),
         if (position !in 0..movieFigures.size) return
         movieFigures.removeAt(position)
         updateAdapter()
-        movieFiguresAdapter.notifyItemRemoved(position)
     }
 
     private fun updateAdapter() {
