@@ -132,8 +132,7 @@ class MovieGridListFragment : Fragment(R.layout.fragment_listfragment),
     }
 
     private fun deleteMovieFigure(position: Int) {
-        if (position !in 0..movieFigures.size) return
-        movieFigures.removeAt(position)
+        movieFigures = movieFigures.filterIndexed { index, movieFigure -> index != position } as ArrayList<MovieFigure>
         updateAdapter()
 
 

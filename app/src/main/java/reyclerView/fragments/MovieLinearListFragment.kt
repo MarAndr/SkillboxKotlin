@@ -83,7 +83,6 @@ class MovieLinearListFragment : Fragment(R.layout.fragment_listfragment),
             selectMovieFigure()
         }
         updateAdapter()
-//        movieFiguresAdapter.notifyDataSetChanged()
         if (isDialog) selectMovieFigure()
 
     }
@@ -120,14 +119,11 @@ class MovieLinearListFragment : Fragment(R.layout.fragment_listfragment),
     private fun addMovieFigure(movieFigure: MovieFigure) {
         movieFigures.add(0, movieFigure)
         updateAdapter()
-//        movieFiguresAdapter.notifyItemInserted(0)
         itemView_listFragment.scrollToPosition(0)
     }
 
     private fun deleteMovieFigure(position: Int) {
-        if (position !in 0..movieFigures.size) return
-        movieFigures.removeAt(position)
-//        movieFiguresAdapter.notifyItemRemoved(position)
+        movieFigures = movieFigures.filterIndexed { index, movieFigure -> index != position } as ArrayList<MovieFigure>
         updateAdapter()
 
     }
