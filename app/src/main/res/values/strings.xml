@@ -19,6 +19,9 @@
     <string name="agePlaceHolder">%1$d years old</string>
     <string name="genrePlaceHolder">Genre: %1$s</string>
     <string name="cancel">cancel</string>
+    <string name="linearlayoutManager">Linear</string>
+    <string name="gridlayoutManager">Grid</string>
+    <string name="staggeredlayoutManager">Staggered</string>
     <string-array name="movieFigureNames">
         <item>Actor</item>
         <item>Director</item>

@@ -1,4 +1,4 @@
-package reyclerView
+package reyclerView.dialogs
 
 import android.app.AlertDialog
 import android.app.Dialog
@@ -8,7 +8,11 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.DialogFragment
 import com.example.skillboxkotlin.R
 import kotlinx.android.synthetic.main.add_director.view.*
-import java.util.zip.Inflater
+import reyclerView.extensions.DialogButtonClick
+import reyclerView.data.MovieFigure
+import reyclerView.data.MovieFigureEnum
+import reyclerView.extensions.withArguments
+import kotlin.random.Random
 
 class InfoDialogFragment : DialogFragment() {
 
@@ -40,11 +44,12 @@ class InfoDialogFragment : DialogFragment() {
             .setTitle("Add characteristic of a new movie figure:")
             .setView(view)
             .setPositiveButton("add") { _, _ ->
+                val id = Random.nextLong()
                 val age = view.etAge_dialogFragment.text.toString().toIntOrNull() ?: 0
                 var name = view.etName_dialogFragment.text.toString()
                 if (name == "") name = "Anonym"
                 val isAward = view.switchAcademyAward_dialogFragment.isChecked
-                val actor = MovieFigure.Actor(name, age, "", isAward)
+                val actor = MovieFigure.Actor(id, name, age, "", isAward)
                 (parentFragment as DialogButtonClick).onPositiveButtonClick(actor)
             }
             .setNegativeButton("cancel") { _, _ -> }
@@ -68,12 +73,20 @@ class InfoDialogFragment : DialogFragment() {
             .setTitle("Add characteristic of a new movie figure:")
             .setView(view)
             .setPositiveButton("add") { _, _ ->
+                val id = Random.nextLong()
                 val age = view.etAge_dialogFragment.text.toString().toIntOrNull() ?: 0
                 var name = view.etName_dialogFragment.text.toString()
                 if (name == "") name = "Anonym"
                 val isAward = view.switchAcademyAward_dialogFragment.isChecked
                 val genres = view.spinnerGenre.selectedItem.toString()
-                val director = MovieFigure.FilmDirector(name, age, "", genres, isAward)
+                val director = MovieFigure.FilmDirector(
+                    id,
+                    name,
+                    age,
+                    "",
+                    genres,
+                    isAward
+                )
                 (parentFragment as DialogButtonClick).onPositiveButtonClick(director)
             }
             .setNegativeButton("cancel") { _, _ -> }

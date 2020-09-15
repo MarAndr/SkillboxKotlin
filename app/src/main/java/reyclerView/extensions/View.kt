@@ -1,4 +1,4 @@
-package reyclerView
+package reyclerView.extensions
 
 import android.view.LayoutInflater
 import android.view.View

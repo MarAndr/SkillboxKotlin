@@ -1,7 +1,8 @@
-package reyclerView
+package reyclerView.extensions
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import reyclerView.AutoClearedValue
 
 fun <T: Fragment> T.withArguments(action: Bundle.() -> Unit): T {
     return apply {
