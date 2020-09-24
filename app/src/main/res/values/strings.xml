@@ -22,6 +22,15 @@
     <string name="linearlayoutManager">Linear</string>
     <string name="gridlayoutManager">Grid</string>
     <string name="staggeredlayoutManager">Staggered</string>
+    <string name="permitButtonText">Разрешить</string>
+    <string name="text_explainWhyPermission">для отображения списка локаций необходимо разрешение</string>
+    <string name="getLocationButtonText">Получить локацию</string>
+    <string name="noneLocationTextView">Нет локаций для отображения</string>
+    <string name="location_data">Location Data</string>
+    <string name="latLabel">Latitude:"     "</string>
+    <string name="lngLabel">Longitude:"     "</string>
+    <string name="speedLabel">Speed:"     "</string>
+    <string name="accuracyLabel">Accuracy:"     "</string>
     <string-array name="movieFigureNames">
         <item>Actor</item>
         <item>Director</item>
