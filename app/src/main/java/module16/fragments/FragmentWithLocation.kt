@@ -1,5 +1,6 @@
 package module16.fragments
 
+import android.Manifest
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.pm.PackageManager
@@ -94,17 +95,24 @@ class FragmentWithLocation : Fragment(R.layout.fragment_withlocation) {
         }
     }
 
-    private fun requestPermission() {
+    private fun requestPermissionRequestLocationUpdates() {
         requestPermissions(
-            arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
+            arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
             REQUEST_LOCATION_UPDATES_CODE
+        )
+    }
+
+    private fun requestPermissionRequestLastLocation() {
+        requestPermissions(
+            arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+            REQUEST_LAST_LOCATION
         )
     }
 
     private fun startGettingUpdates() {
         if (ActivityCompat.checkSelfPermission(
                 requireContext(),
-                android.Manifest.permission.ACCESS_FINE_LOCATION
+                Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
         ) {
             fusedLocationProviderClient.requestLocationUpdates(
@@ -113,7 +121,7 @@ class FragmentWithLocation : Fragment(R.layout.fragment_withlocation) {
                 null
             )
         } else {
-            requestPermission()
+            requestPermissionRequestLocationUpdates()
         }
     }
 
@@ -123,20 +131,27 @@ class FragmentWithLocation : Fragment(R.layout.fragment_withlocation) {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (grantResults.all { it == PackageManager.PERMISSION_GRANTED }) {
-            fusedLocationProviderClient.requestLocationUpdates(
-                locationRequest,
-                locationCallback,
-                null
-            )
+        if (requestCode == REQUEST_LOCATION_UPDATES_CODE && grantResults.all { it == PackageManager.PERMISSION_GRANTED }) {
+            startGettingUpdates()
+        } else if (requestCode == REQUEST_LAST_LOCATION && grantResults.all { it == PackageManager.PERMISSION_GRANTED }){
+            addItem()
         }
     }
 
     private fun addItem() {
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            requestPermissionRequestLastLocation()
+        }
         fusedLocationProviderClient.lastLocation
             .addOnSuccessListener {
                 updateUIValues(it)
             }
+            .addOnCanceledListener {makeToast("Location request was cancelled")}
+            .addOnFailureListener { makeToast("Location request failed") }
     }
 
     private fun makeToast(message: String) {
@@ -168,6 +183,7 @@ class FragmentWithLocation : Fragment(R.layout.fragment_withlocation) {
                             Toast.LENGTH_SHORT
                         ).show()
                         setUpItemCurrentTime(itemId, zonedDateTime.toInstant())
+                        adapterLocation?.notifyDataSetChanged()
                         Log.d("DataPicker", "currentTime = ${dataList[position].currentTime}")
                     },
                     currentDateTime.hour,
@@ -190,6 +206,6 @@ class FragmentWithLocation : Fragment(R.layout.fragment_withlocation) {
 
     companion object {
         private const val REQUEST_LOCATION_UPDATES_CODE = 1
-        private const val LAST_LOCATION = 2
+        private const val REQUEST_LAST_LOCATION = 2
     }
 }

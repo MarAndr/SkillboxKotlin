@@ -20,8 +20,7 @@ class MainActivity: AppCompatActivity(R.layout.activity_main), OpenFragment {
         val isPermissionLocationGranted = ActivityCompat.checkSelfPermission(this,
             Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
         if (isPermissionLocationGranted){
-//            addFragmentWithLocation()
-            addFragmentTest()
+            addFragmentWithLocation()
         } else {
             addFragmentWithoutPermission()
         }
@@ -52,18 +51,6 @@ class MainActivity: AppCompatActivity(R.layout.activity_main), OpenFragment {
             .replace(R.id.container_mainAct, FragmentWithLocation())
             .commit()
     }
-
-    private fun addFragmentTest(){
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.container_mainAct, FragmentWithLocation())
-            .commit()
-    }
-
-//    override fun openFragment() {
-//        supportFragmentManager.beginTransaction()
-//            .replace(R.id.container_mainAct, FragmentWithLocation())
-//            .commit()
-//    }
 
     override fun openFragment() {
         supportFragmentManager.beginTransaction()
