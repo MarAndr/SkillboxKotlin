@@ -7,4 +7,5 @@
   <color name="material_yellow">#FFC438</color>
   <color name="material_white">@android:color/white</color>
   <color name="divider">#97938A</color>
+  <color name="buttonBG">#000000</color>
 </resources>
