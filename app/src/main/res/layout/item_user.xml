@@ -44,7 +44,7 @@
         android:id="@+id/developerTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="developer"
+        android:text="@string/developer_label"
         android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/ageTextView"

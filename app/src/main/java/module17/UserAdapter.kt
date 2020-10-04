@@ -3,6 +3,9 @@ package module17
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.skillboxkotlin.R
@@ -32,13 +35,19 @@ class UserAdapter(
     class Holder(
         override val containerView: View, onItemClick: (position: Int) -> Unit
 
-        ) : RecyclerView.ViewHolder(containerView), LayoutContainer {
+    ) : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
         init {
-           containerView.setOnLongClickListener{
-               onItemClick(adapterPosition)
-               return@setOnLongClickListener true
-          }
+
+            containerView.setOnClickListener {
+                containerView.findNavController()
+                    .navigate(R.id.action_mainFragment_to_detailInfoFragment)
+            }
+
+            containerView.setOnLongClickListener {
+                onItemClick(adapterPosition)
+                return@setOnLongClickListener true
+            }
         }
 
         fun bind(user: Person) {
@@ -54,5 +63,6 @@ class UserAdapter(
 
 
     }
+
 
 }

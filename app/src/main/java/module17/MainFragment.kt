@@ -37,7 +37,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private fun initList() {
         personAdapter = UserAdapter { position: Int ->
             deletePerson(position)
-//            findNavController().navigate(R.id.action_mainFragment_to_detailInfoFragment)
         }
 
         with(rv_recycleViewListFragment_personList) {
