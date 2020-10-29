@@ -3,6 +3,9 @@
   <color name="colorPrimary">#ffc107</color>
   <color name="colorPrimaryDark">#c79100</color>
   <color name="colorAccent">#DA7197</color>
+  <color name="colorPrimaryColdStyle">#1565c0</color>
+  <color name="colorPrimaryDarkColdStyle">#003c8f</color>
+  <color name="colorAccentColdStyle">#EC1010</color>
   <color name="toolbar">#ffc107</color>
   <color name="material_yellow">#FFC438</color>
   <color name="material_white">@android:color/white</color>

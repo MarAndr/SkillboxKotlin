@@ -36,14 +36,20 @@
     <string name="favorite_business_label">Favorite business:</string>
     <string name="phone_number_label">Phone number:</string>
     <string name="developer_label">developer</string>
+    <string name="toThreadingfragmentBtnText">ThreadingFragment</string>
     <string-array name="movieFigureNames">
         <item>Actor</item>
         <item>Director</item>
     </string-array>
-    <string-array name="movieGenre">
-        <item>Сomedy</item>
-        <item>Horror</item>
-        <item>Drama</item>
+    <string-array name="filmTypes">
+        <item>movie</item>
+        <item>series</item>
+        <item>episode</item>
+        <item>not selected</item>
     </string-array>
+    <string name="errorYearFilm">The year released is out of bounds!</string>
+    <string name="no_network_connection_text">no network connection</string>
+    <string name="movieIsNotFoundText">the movie is not found</string>
+
 
 </resources>

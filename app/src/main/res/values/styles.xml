@@ -3,9 +3,9 @@
   <!-- Base application theme. -->
   <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
     <!-- Customize your theme here. -->
-    <item name="colorPrimary">@color/colorPrimary</item>
-    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-    <item name="colorAccent">@color/colorAccent</item>
+    <item name="colorPrimary">@color/colorPrimaryColdStyle</item>
+    <item name="colorPrimaryDark">@color/colorPrimaryDarkColdStyle</item>
+    <item name="colorAccent">@color/colorAccentColdStyle</item>
     <item name="android:listDivider">@drawable/divider</item>
   </style>
 
@@ -47,6 +47,13 @@
 
   <style name="ToolBarNavigationStyle" parent="Widget.AppCompat.Toolbar.Button.Navigation">
     <item name="tint">@android:color/black</item>
+  </style>
+
+  <style name="errorText">
+    <item name="android:textColor">@color/colorAccentColdStyle</item>
+    <item name="android:textSize">20sp</item>
+    <item name="android:textAlignment">center</item>
+    <item name="android:fontFamily">sans-serif-condensed-medium</item>
   </style>
 
 
