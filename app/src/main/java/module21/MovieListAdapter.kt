@@ -15,7 +15,7 @@ class MovieListAdapter: RecyclerView.Adapter<MovieListAdapter.Holder>() {
     private var movies: List<RemoteMovie> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
-        return Holder(parent.inflate(R.layout.item_movie))
+        return Holder(parent.inflate(R.layout.item_movie_linear))
     }
 
     override fun getItemCount(): Int {

@@ -11,7 +11,7 @@ object Network {
 //    query «Параметры». Избавьтесь от установки API key при формировании
 //    запроса. Добавьте interceptor для OkHttpClient.
 
-    val client = OkHttpClient.Builder()
+    private val client: OkHttpClient = OkHttpClient.Builder()
         .addNetworkInterceptor(
             CustomApiInterceptor("apikey", "8bd228a8")
         )
