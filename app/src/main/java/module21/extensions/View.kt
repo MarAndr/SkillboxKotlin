@@ -1,10 +1,10 @@
-package my_training.recyclerview
+package com.example.mytestinglaboratory.list_pets.extensions
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 
-fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = false): View {
+fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = false): View{
     return LayoutInflater.from(context).inflate(layoutRes, this, attachToRoot)
 }
