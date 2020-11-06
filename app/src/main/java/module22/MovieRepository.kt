@@ -1,32 +1,11 @@
-package module21
+package module22
 
 import android.util.Log
-import android.widget.Toast
-import com.example.mytestinglaboratory.my_training.network.movielist.RemoteMovie
-import org.json.JSONException
-import org.json.JSONObject
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.Types
 import java.io.IOException
 
 class MovieRepository {
-
-    private fun parseMovieResponse(responseBodyString: String): List<RemoteMovie>{
-        return try {
-            val jsonObject = JSONObject(responseBodyString)
-            val movieArray = jsonObject.getJSONArray("Search")
-            val movies = (0 until movieArray.length()).map {index -> movieArray.getJSONObject(index) }.map { movieJsonObject ->
-                val title = movieJsonObject.getString("Title")
-                val year = movieJsonObject.getString("Year")
-                val id = movieJsonObject.getString("imdbID")
-                val type = movieJsonObject.getString("Type")
-                val poster = movieJsonObject.getString("Poster")
-                RemoteMovie(id, title, year, type, poster)
-            }
-            movies
-        } catch (e: JSONException) {
-            Log.d("MyServer", "parse response error = ${e.message}", e)
-            emptyList()
-        }
-    }
 
     fun searchMovie(searchText: String,
                     year: String, type: String?,
@@ -57,5 +36,17 @@ class MovieRepository {
             Thread.sleep(1000)
         }.start()
 
+    }
+
+    private fun parseMovieResponse(responseBodyString: String): List<RemoteMovie>{
+        return try {
+            val moshi = Moshi.Builder().build()
+            val adapter = moshi.adapter(Search::class.java).nonNull()
+            val movies = adapter.fromJson(responseBodyString)?.search
+            movies!!
+        } catch (e: Exception) {
+            Log.d("MyServer", "parse response error = ${e.message}", e)
+            emptyList()
+        }
     }
 }

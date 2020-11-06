@@ -1,19 +1,20 @@
-package module21
+package module22
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.mytestinglaboratory.my_training.network.movielist.RemoteMovie
 
 class MovieListViewModel : ViewModel() {
 
     private val movieRepository = MovieRepository()
     private val _movieListLiveData = MutableLiveData<List<RemoteMovie>>()
+    private val _chosenMovie = MutableLiveData<RemoteMovie>()
     private val _isLoadingLiveData = MutableLiveData<Boolean>()
     private val _errorLiveData = MutableLiveData<Throwable>()
     private val _hasListFoundLiveData = MutableLiveData<Boolean>()
 
     val movieListLiveData: LiveData<List<RemoteMovie>> = _movieListLiveData
+    val chosenMovie: LiveData<RemoteMovie> = _chosenMovie
     val isLoadingLiveData: LiveData<Boolean> = _isLoadingLiveData
     val errorLiveData: LiveData<Throwable> = _errorLiveData
     val hasListFoundLiveData: LiveData<Boolean> = _hasListFoundLiveData
@@ -33,5 +34,14 @@ class MovieListViewModel : ViewModel() {
                 _hasListFoundLiveData.postValue(isFilmFound)
             }
         )
+    }
+
+    fun addScore(index: Int){
+        val chosenMovie = _movieListLiveData.value?.get(index)
+        chosenMovie?.score?.forEach {
+            it.source = "My Panorama"
+            it.value = "22"
+        }
+        _chosenMovie.postValue(chosenMovie)
     }
 }

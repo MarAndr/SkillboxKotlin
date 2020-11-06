@@ -1,4 +1,4 @@
-package module21
+package module22
 
 import android.os.Bundle
 import android.view.ViewGroup
@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import module21.extensions.autoCleared
+import module22.extensions.autoCleared
 import com.example.skillboxkotlin.R
 import kotlinx.android.synthetic.main.fragment_movielist.*
 import kotlinx.android.synthetic.main.fragment_movielist.autoCompleteText
@@ -38,12 +38,19 @@ class MovieListFragment : Fragment(R.layout.fragment_movielist) {
     }
 
     private fun initList() {
-        movieListAdapter = MovieListAdapter()
+        movieListAdapter = MovieListAdapter{index ->
+            addScoreDialog(index) }
         with(rv_fragmentMovieList_filmList) {
             adapter = movieListAdapter
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
         }
+    }
+
+    private fun addScoreDialog(index: Int) {
+        viewModel.addScore(index)
+        AddScoreDialog().show(childFragmentManager, "addScoreDialog")
+        movieListAdapter.notifyDataSetChanged()
     }
 
     private fun bindViewModel() {
@@ -62,7 +69,6 @@ class MovieListFragment : Fragment(R.layout.fragment_movielist) {
                     } else {
                         viewModel.search(queryText, yearText, type)
                         textInputLayout_fragmentMovieList_filmYear.isErrorEnabled = false
-
                     }
                     observeMovieListLiveData()
                     observeIsLoadingLiveData()
@@ -87,6 +93,14 @@ class MovieListFragment : Fragment(R.layout.fragment_movielist) {
         textInputLayout_fragmentMovieList_filmName.isEnabled = isLoading.not()
         textInputLayout_fragmentMovieList_filmYear.isEnabled = isLoading.not()
     }
+
+    private fun observeMovieScoreLiveData(){
+        viewModel.chosenMovie.observe(viewLifecycleOwner, Observer {
+
+        })
+    }
+
+
 
     private fun observeMovieListLiveData(){
         viewModel.movieListLiveData.observe(viewLifecycleOwner, Observer { movies ->
