@@ -60,5 +60,6 @@ class MovieListAdapter(
 
     fun updateMovieList(newList: List<RemoteMovie>){
         movies = newList
+        notifyDataSetChanged()
     }
 }

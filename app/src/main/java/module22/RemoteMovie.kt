@@ -7,7 +7,7 @@ data class RemoteMovie(
     @Json(name = "imdbID")
     val id: String,
     @Json(name = "Title")
-    val title: String,
+    var title: String,
     @Json(name = "Year")
     val year: String,
     @Json(name = "Type")
@@ -15,6 +15,5 @@ data class RemoteMovie(
     @Json(name = "Poster")
     val poster: String,
     val rating: MovieRating = MovieRating.GENERAL,
-    var score: List<MovieScore> = emptyList()
-//    val score: Map<String,String> = emptyMap()
+    var score: Map<String,String> = emptyMap()
 )

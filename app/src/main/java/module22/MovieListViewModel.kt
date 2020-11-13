@@ -20,28 +20,37 @@ class MovieListViewModel : ViewModel() {
     val hasListFoundLiveData: LiveData<Boolean> = _hasListFoundLiveData
 
 
-    fun search(text: String, year: String, type: String?) {
-        _isLoadingLiveData.postValue(true)
-        movieRepository.searchMovie(text, year, type,
-            { movies ->
-                _isLoadingLiveData.postValue(false)
-                _movieListLiveData.postValue(movies)
-            },
-            { error ->
-                _errorLiveData.postValue(error)
-            },
-            { isFilmFound ->
-                _hasListFoundLiveData.postValue(isFilmFound)
-            }
-        )
-    }
 
-    fun addScore(index: Int){
-        val chosenMovie = _movieListLiveData.value?.get(index)
-        chosenMovie?.score?.forEach {
-            it.source = "My Panorama"
-            it.value = "22"
-        }
-        _chosenMovie.postValue(chosenMovie)
-    }
+//    fun search(text: String, year: String, type: String?) {
+//        _isLoadingLiveData.postValue(true)
+//        movieRepository.searchMovie(text, year, type,
+//            { movies ->
+//                _isLoadingLiveData.postValue(false)
+//                _movieListLiveData.postValue(movies)
+//            },
+//            { error ->
+//                _errorLiveData.postValue(error)
+//            },
+//            { isFilmFound ->
+//                _hasListFoundLiveData.postValue(isFilmFound)
+//            }
+//        )
+//    }
+
+//    fun changeFilmScore(index: Int, source: String, value: String){
+//        val selectedMovie = _movieListLiveData.value?.get(index)
+//        selectedMovie?.score?.last()?.source = source
+//        selectedMovie?.score?.last()?.value = value
+//        val movies = _movieListLiveData.value?.plus(listOf(selectedMovie))
+//        _movieListLiveData.postValue(movies.orEmpty() as List<RemoteMovie>?)
+//    }
+
+//    fun addScore(index: Int){
+//        val chosenMovie = _movieListLiveData.value?.get(index)
+//        chosenMovie?.score?.forEach {
+//            it.source = "My Panorama"
+//            it.value = "22"
+//        }
+//        _chosenMovie.postValue(chosenMovie)
+//    }
 }
