@@ -16,7 +16,7 @@
         android:theme="@style/AppTheme">
 
 
-        <activity android:name="module21.HostActivity">
+        <activity android:name="module22.HostActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

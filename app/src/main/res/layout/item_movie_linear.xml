@@ -135,6 +135,66 @@
                 tools:text="@tools:sample/first_names" />
         </LinearLayout>
 
+        <LinearLayout
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_itemMovie_ratingLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="rating: "
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tv_itemMovie_type"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toEndOf="@+id/iv_itemMovie_poster"
+                app:layout_constraintTop_toBottomOf="@id/tv_itemMovie_id" />
+
+            <TextView
+                android:id="@+id/tv_itemMovie_rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_itemMovie_typeLabel"
+                app:layout_constraintTop_toBottomOf="@id/tv_itemMovie_id"
+                tools:text="@tools:sample/first_names" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_itemMovie_scoreLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="scores: "
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tv_itemMovie_type"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toEndOf="@+id/iv_itemMovie_poster"
+                app:layout_constraintTop_toBottomOf="@id/tv_itemMovie_id" />
+
+            <TextView
+                android:id="@+id/tv_itemMovie_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_itemMovie_typeLabel"
+                app:layout_constraintTop_toBottomOf="@id/tv_itemMovie_id"
+                tools:text="@tools:sample/first_names" />
+        </LinearLayout>
+
 
     </LinearLayout>
 
